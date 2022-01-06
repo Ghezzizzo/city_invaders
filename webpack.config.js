@@ -16,7 +16,11 @@ module.exports = {
         port: 3000
     },
     plugins: [
-    new HtmlWebpackPlugin({template: 'src/template.html'}),
+    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+        template: 'src/template.html',
+        filename: 'game.html'
+    }),
     new CleanWebpackPlugin()
     ],
     output: {
