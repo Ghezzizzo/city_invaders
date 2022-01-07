@@ -6,8 +6,8 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        app: './src/index.js',
-        profile: './src/profile.js',
+        index: './src/js/index.js',
+        game: './src/js/game.js',
     },
     devServer: {
         static : {
@@ -16,9 +16,12 @@ module.exports = {
         port: 3000
     },
     plugins: [
-    new HtmlWebpackPlugin(),
     new HtmlWebpackPlugin({
-        template: 'src/template.html',
+        template: 'src/index.html',
+        filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+        template: 'src/game.html',
         filename: 'game.html'
     }),
     new CleanWebpackPlugin()

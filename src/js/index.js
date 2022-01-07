@@ -1,17 +1,36 @@
-import getProfile from './profile';
-import './style.css';
+import '../img/arrow-down.svg';
+import '../css/style.css';
 
-function draw(params) {
-    const el = document.createElement('div');
-    const btn = document.createElement('button');
-    el.innerHTML = 'Hello world';
-    el.classList.add('hello');
+// //  html elements
+// const btn_src = document.getElementById('btn_src');
+// const demo = document.getElementById('demo');
+// const results = document.getElementById('results');
+// // search constant
+// const allUrbanAreas = [];
+// const allUrbAreasURL = 'https://api.teleport.org/api/urban_areas/';
+// const researchUrl = 'https://api.teleport.org/api/cities/?search=';
+// // search variables
 
-    btn.innerHTML = 'GET PROFILE';
-    btn.onclick = getProfile;
-    el.appendChild(btn);
+// // function for return Json
+// async function myFetch(input){
+//     let response = await fetch(input);
+//     let myJson = await response.json();
+//     city = myJson;
+//     console.log(city);
+// }
 
-    return el;
-}
+const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
 
-document.body.appendChild(draw());
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click",()=>{
+    optionsContainer.classList.toggle("active");
+})
+
+optionsList.forEach( o => {
+    o.addEventListener("click",()=>{
+        selected.innerHTML = o.querySelector("label").innerHTML;
+        optionsContainer.classList.remove("active");
+    });
+});
