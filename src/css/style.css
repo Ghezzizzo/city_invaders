@@ -32,7 +32,7 @@ h2 {
   width: 100%;
   opacity: 0;
   transition: all 0.4s;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
   overflow: hidden;
 
   order: 1;
@@ -63,7 +63,6 @@ h2 {
 
 .select-box .options-container::-webkit-scrollbar-thumb {
   background: #525861;
-  border-radius: 0 8px 8px 0;
 }
 
 .select-box .option,
@@ -98,7 +97,7 @@ h2 {
 
   opacity: 0;
   pointer-events: none;
-  transition: all 0.4s;
+  transition: all 0.2s;
 }
 
 .search-box input:focus {
