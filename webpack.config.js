@@ -6,8 +6,8 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/js/index.js',
-        game: './src/js/game.js',
+        index: './src/js/first_page/index.js',
+        game: './src/js/game/game.js',
     },
     devServer: {
         static : {
