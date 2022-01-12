@@ -8,6 +8,7 @@ const number = document.querySelectorAll(".number");
 const desc = document.querySelectorAll(".desc");
 const circle = document.querySelectorAll("circle");
 const btnGame = document.querySelector(".game-link");
+const cityPar = document.querySelector(".city-par");
 
 // variables for API
 let optionsList;
@@ -46,9 +47,9 @@ async function addCities() {
             optionsContainer.classList.remove("active");
             
             await myFetch('https://api.teleport.org/api/urban_areas/slug:'+theCity+'/scores/');
-            
+
             let categories = city.categories;
-            
+            cityPar.innerHTML = city.summary;
             for (let i = 0; i < categories.length; i++) {
                 number[i].innerHTML = "";
                 circle[i].style.strokeDashoffset = 260;
