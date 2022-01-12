@@ -18,16 +18,18 @@ module.exports = {
     plugins: [
     new HtmlWebpackPlugin({
         template: 'src/index.html',
-        filename: 'index.html'
+        filename: 'index.html',
+        chunks: ['index']
     }),
     new HtmlWebpackPlugin({
         template: 'src/game.html',
-        filename: 'game.html'
+        filename: 'game.html',
+        chunks:['game']
     }),
     new CleanWebpackPlugin()
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname,'dist')
     },
     module: {
