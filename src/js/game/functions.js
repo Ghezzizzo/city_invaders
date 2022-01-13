@@ -4,15 +4,32 @@ import {Enemy} from "./Enemy";
 import { Defender } from "./Defender";
 import {Resourse} from './Resource';
 
-let amounts = [15, 20, 25];
+let cookieText = document.cookie;
+let valuesList = [];
 let frame = 0;
 let enemiesInterval = 1000;
-let numberOfResources = 300;
-let winningScore = 100;
-let defenderCost = 100;
+let numberOfResources;
+let speedSpawn;
+let winningScore;
+let defenderCost;
 let score = 0;
 let result = 1;
 let gameOver = false;
+
+function createValues() {
+    for (let i = 0; i < cookieText.length; i++) {
+        if(i%2 === 0) {
+            valuesList.push(parseInt(cookieText[i]))
+        } 
+    } 
+    numberOfResources = 50 + valuesList[3] * 10;
+    speedSpawn = 200 - valuesList[6]*10;
+    defenderCost = 80 + 1/valuesList[1]*10;
+    winningScore = 1000 - 1/valuesList[0]*100;
+    console.log(defenderCost);
+}
+
+
 
 gv.canvas.addEventListener('click', function () {
     const gridPositionX = gv.mouse.x - (gv.mouse.x % gv.cellSize) + gv.cellGap;
@@ -55,7 +72,7 @@ function handleDefender() {
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.defenders[i] && collision(gv.defenders[i], gv.enemies[j])) {
                 gv.enemies[j].movement = 0;
-                gv.defenders[i].health -= 0.2;
+                gv.defenders[i].health -= 0.2 + 1/valuesList[14];
             }
             if(gv.defenders[i] && gv.defenders[i].health <= 0){
                 gv.defenders.splice(i, 1);
@@ -117,7 +134,7 @@ function handleProjectile() {
 }
 
 function handleResource() {
-    if (frame % 500 === 0 && score < winningScore) {
+    if (frame % speedSpawn === 0 && score < winningScore) {
         gv.resources.push(new Resourse());
     }
     for (let i = 0; i < gv.resources.length; i++) {
@@ -182,4 +199,4 @@ function animate() {
 
 }
 
-export {createGrid,handleGameGrid,animate,collision,amounts};
+export {createGrid,handleGameGrid,animate,collision,valuesList,createValues};

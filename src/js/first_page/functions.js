@@ -2,6 +2,7 @@ import * as v from "./global-variables";
 
 let city;
 let optionsList;
+let valuesList = [];
 
 async function myFetch(input){
     let response = await fetch(input);
@@ -45,6 +46,7 @@ async function addCities() {
                 v.number[i].innerHTML = "";
                 v.circle[i].style.strokeDashoffset = 260;
                 let value = Math.floor(categories[i].score_out_of_10);
+                valuesList.push(value);
                 v.circle[i].style.stroke = categories[i].color;
                 v.desc[i].innerHTML = categories[i].name;
                 let circleValue = Math.floor(value*260/10);
@@ -59,10 +61,9 @@ async function addCities() {
                     counter += 1;
                     v.circle[i].style.strokeDashoffset = 260 - counter;
                     v.number[i].innerHTML = Math.floor(Math.random()*10);
-                }},10)
-                  
+                }},10)    
             }
-            
+            document.cookie = valuesList;
         });
     });
 }

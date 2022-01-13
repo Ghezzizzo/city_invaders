@@ -1,4 +1,5 @@
 import * as gv from "./global_variables";
+import { valuesList } from "./functions";
 
 export class Projectile{
     constructor(x, y) {
@@ -6,7 +7,7 @@ export class Projectile{
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.power = 20;
+        this.power = 5 + valuesList[7];
         this.speed = 5;
     }
     update(){

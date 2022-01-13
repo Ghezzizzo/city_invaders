@@ -1,9 +1,12 @@
 import '../../css/game-style.css';
-import {createGrid,animate} from './functions';
+import {createGrid,animate,createValues} from './functions';
 import * as gv from "./global_variables";
+
+createValues();
 
 // create grid for the game
 createGrid();
+
 
 // create mouse interaction
 gv.canvas.addEventListener('mousemove', function (e) {

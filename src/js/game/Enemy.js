@@ -1,4 +1,5 @@
 import * as gv from "./global_variables";
+import { valuesList } from "./functions";
 
 export class Enemy {
     constructor(verticalPosition) {
@@ -6,9 +7,9 @@ export class Enemy {
         this.y = verticalPosition;
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize- gv.cellGap * 2;
-        this.speed = Math.random() * 0.2 + 0.4;
+        this.speed = Math.random() * 0.2 + valuesList[4] * 0.2;
         this.movement = this.speed;
-        this.health = 100;
+        this.health = 100 + valuesList[9]*100;
         this.maxHealth = this.health;
     }
     update(){

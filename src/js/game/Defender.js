@@ -1,5 +1,6 @@
 import * as gv from "./global_variables";
 import { Projectile } from "./Projectile";
+import { valuesList } from "./functions";
 
 export class Defender {
     constructor(x,y) {
@@ -8,9 +9,10 @@ export class Defender {
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize - gv.cellGap* 2;
         this.shooting = false;
-        this.health = 100;
+        this.health = 50 + valuesList[8] * 4;
         this.projectiles = [];
         this.timer = 0;
+        this.speedFire = 20 + Math.floor(valuesList[2]*0.6);
     }
     draw(){
         gv.ctx.fillStyle = 'blue';
@@ -22,7 +24,7 @@ export class Defender {
     update(){
         if (this.shooting) {
             this.timer++;
-            if(this.timer % 40 === 0){
+            if(this.timer % this.speedFire === 0){
                 gv.projectiles.push(new Projectile(this.x + gv.cellSize, this.y + gv.cellSize/2))
             }
         }
