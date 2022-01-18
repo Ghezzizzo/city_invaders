@@ -7,7 +7,7 @@ export class Resourse {
         this.y = Math.floor(Math.random() * 5 + 1) * gv.cellSize + 25;
         this.width = gv.cellSize * 0.6;
         this.height = gv.cellSize * 0.6;
-        this.amount = Math.floor(5 + valuesList[11]*0.5);
+        this.amount = Math.floor(10 + valuesList[11]*0.5);
     }
     draw(){
         gv.ctx.fillStyle = 'yellow';

@@ -17,16 +17,16 @@ let result = 1;
 let gameOver = false;
 
 function createValues() {
-    for (let i = 0; i < cookieText.length; i++) {
-        if(i%2 === 0) {
-            valuesList.push(parseInt(cookieText[i]))
-        } 
-    } 
+
+    valuesList = JSON.parse("[" + cookieText + "]");
+
     numberOfResources = 50 + valuesList[3] * 10;
     speedSpawn = 200 - valuesList[6]*10;
-    defenderCost = 80 + 1/valuesList[1]*10;
-    winningScore = 1000 - 1/valuesList[0]*100;
-    console.log(defenderCost);
+    defenderCost = Math.floor(80 + 1/valuesList[1]*10) ;
+    winningScore = Math.floor(1000 - 1/valuesList[0]*100) ;
+
+    console.log(valuesList);
+    
 }
 
 
@@ -167,11 +167,15 @@ function handleGameStatus() {
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText('Score: ' + score, 20, 45);
+        gv.ctx.fillText('Defender cost: ' + defenderCost, 200, 65);
+        if (score >= winningScore) {
+            gv.ctx.fillText('No more enemies', 200, 45);
+        }
         
     } else {
         gv.ctx.fillStyle = 'black';
         gv.ctx.font = '120px Stick No Bills';
-        gv.ctx.fillText(gv.endGame[result], (gv.canvas.width - Math.floor(gv.ctx.measureText(this).width))/2, gv.canvas.height/2);
+        gv.ctx.fillText(gv.endGame[result], (gv.canvas.width - gv.ctx.measureText(this).width)/2, gv.canvas.height/2);
     }
     if (score >= winningScore && gv.enemies.length === 0) {
         result = 1;
@@ -186,8 +190,8 @@ function animate() {
         gv.ctx.fillRect(0,0,gv.controlBar.width, gv.controlBar.height);
         handleGameGrid();
         handleDefender();
-        handleResource();
         handleEnemy();
+        handleResource();
         handleProjectile();
         frame++;
         requestAnimationFrame(animate);

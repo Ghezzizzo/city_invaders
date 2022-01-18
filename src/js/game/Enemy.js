@@ -7,7 +7,7 @@ export class Enemy {
         this.y = verticalPosition;
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize- gv.cellGap * 2;
-        this.speed = Math.random() * 0.2 + valuesList[4] * 0.2;
+        this.speed = Math.random() * 0.2 + valuesList[4] * 0.1;
         this.movement = this.speed;
         this.health = 100 + valuesList[9]*100;
         this.maxHealth = this.health;
