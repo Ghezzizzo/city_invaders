@@ -17,7 +17,6 @@ let result = 1;
 let gameOver = false;
 
 function createValues() {
-
     valuesList = JSON.parse("[" + cookieText + "]");
 
     numberOfResources = 50 + valuesList[3] * 10;
@@ -26,7 +25,6 @@ function createValues() {
     winningScore = Math.floor(1000 - 1/valuesList[0]*100) ;
 
     console.log(valuesList);
-    
 }
 
 
@@ -170,12 +168,9 @@ function handleGameStatus() {
         gv.ctx.fillText('Defender cost: ' + defenderCost, 200, 65);
         if (score >= winningScore) {
             gv.ctx.fillText('No more enemies', 200, 45);
-        }
-        
+        }  
     } else {
-        gv.ctx.fillStyle = 'black';
-        gv.ctx.font = '120px Stick No Bills';
-        gv.ctx.fillText(gv.endGame[result], (gv.canvas.width - gv.ctx.measureText(this).width)/2, gv.canvas.height/2);
+        
     }
     if (score >= winningScore && gv.enemies.length === 0) {
         result = 1;
@@ -196,11 +191,25 @@ function animate() {
         frame++;
         requestAnimationFrame(animate);
     } else {
-        gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);
+        gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);  
+        gv.ctx.fillStyle = 'black';
+        gv.ctx.font = '120px Stick No Bills';
+        gv.ctx.textAlign = "center";
+        gv.ctx.fillText(gv.endGame[result], gv.canvas.width/2, gv.canvas.height/2);
+        createBtn('Try Again',()=>{location.reload()})
+        createBtn('Select City',()=>{window.location.href = "index.html";})
     }
     handleGameStatus();
     
 
 }
+
+function createBtn(text,action) {
+    let btn = document.createElement('button');
+    btn.innerText = text;
+    btn.addEventListener('click',action);
+    gv.btnContainer.appendChild(btn);
+}
+
 
 export {createGrid,handleGameGrid,animate,collision,valuesList,createValues};

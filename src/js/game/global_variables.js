@@ -3,6 +3,7 @@ export const ctx = canvas.getContext('2d');
 canvas.width = 900;
 canvas.height = 600;
 
+export const btnContainer = document.querySelector('.buttons-container');
 export const cellSize = 100;
 export const cellGap = 3;
 export const gameGrid = [];
