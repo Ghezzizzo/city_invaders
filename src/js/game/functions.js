@@ -200,8 +200,6 @@ function animate() {
         createBtn('Select City',()=>{window.location.href = "index.html";})
     }
     handleGameStatus();
-    
-
 }
 
 function createBtn(text,action) {

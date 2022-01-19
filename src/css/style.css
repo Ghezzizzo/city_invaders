@@ -136,7 +136,7 @@ h1 {
 /* categories */
 
 .categories {
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .skill {
@@ -209,6 +209,7 @@ svg {
 .desc {
   padding: 1rem 0;
   text-align: center;
+  position: relative;
 }
 
 /* button */
@@ -228,7 +229,11 @@ svg {
   color: hsl(228, 33%, 97%);
   border-radius: 8px;
   opacity: 0;
+  font-weight: 700;
 
   pointer-events: none;
   transition: all 2s;
+
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
 }

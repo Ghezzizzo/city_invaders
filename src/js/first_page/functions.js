@@ -29,7 +29,7 @@ async function addCities() {
     optionsList = document.querySelectorAll(".option");
     optionsList.forEach( (o) => {
         o.addEventListener("click", async () => {
-            
+            v.btnGame.style.background = "#2f3640";
             v.selected.innerHTML = o.querySelector("label").innerHTML;
             let theCity = v.selected.innerHTML.toLowerCase();
             if (theCity === "washington, d.c.") {
@@ -57,6 +57,31 @@ async function addCities() {
                     clearInterval(interval);
                     v.btnGame.style.opacity = '1';
                     v.btnGame.style.pointerEvents = 'auto';
+                    v.btnGame.addEventListener('mouseover',()=>{ 
+                        v.desc[i].innerHTML = v.glitch[i];
+                        let num = Math.floor(Math.random()*20);
+                        let num2 = Math.floor(Math.random()*20);
+                        let sum = num - num2;
+                        v.desc[i].style.top = sum + 'px';
+                        v.desc[i].style.left = sum + 'px';
+                        v.desc[i].style.transform = "rotate("+sum+"deg)";
+                        v.desc[i].style.color = "#adff2f";
+                        v.circle[i].style.stroke = "#adff2f";
+                        v.number[i].style.color = "#adff2f";
+                        document.body.style.background = "#2f3640";
+                    })
+                    v.btnGame.addEventListener('mouseout',()=>{ 
+                        v.desc[i].innerHTML = categories[i].name;
+                        v.desc[i].style.top = '0';
+                        v.desc[i].style.top = '0';
+                        v.desc[i].style.left = '0';
+                        v.desc[i].style.transform = "rotate(0deg)";
+                        v.desc[i].style.color = "#000";
+                        v.circle[i].style.stroke = categories[i].color;
+                        v.number[i].style.color = "#555";
+                        document.body.style.background = "#f7f6ff";
+                        v.btnGame.style.background = "#ff0000";
+                    })
                 }else{
                     counter += 1;
                     v.circle[i].style.strokeDashoffset = 260 - counter;

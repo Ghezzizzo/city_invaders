@@ -9,6 +9,14 @@ export const circle = document.querySelectorAll("circle");
 export const btnGame = document.querySelector(".game-link");
 export const cityPar = document.querySelector(".city-par");
 
+export const glitch = [
+    "Score Goal","Shild Cost","Bullet Speed",
+    "Initial Sources","Enemy Speed","Enemy Damage",
+    "Spawn Sourse Speed","Bullet Damage",
+    "Defender Life","Enemy Life","Shild Life",
+    "Coin Value","Defender Cost","CENSURED",
+    "Enemy Damage","Enemy Speed","CENSURED"
+];
 // variables for API
 
 export let url = 'https://api.teleport.org/api/urban_areas/';
