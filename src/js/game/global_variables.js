@@ -11,6 +11,7 @@ export const defenders = [];
 export const enemies = [];
 export const enemyPositions = [];
 export const projectiles = [];
+export const floatingMessages = [];
 export const resources = [];
 export const endGame = ['GAME OVER','YOU WIN'];
 

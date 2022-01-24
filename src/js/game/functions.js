@@ -3,6 +3,7 @@ import { Cell } from "./Cell";
 import {Enemy} from "./Enemy";
 import { Defender } from "./Defender";
 import {Resourse} from './Resource';
+import { floatingMasseage } from "./FloatingMessage";
 
 let cookieText = document.cookie;
 let valuesList = [];
@@ -27,8 +28,6 @@ function createValues() {
     console.log(valuesList);
 }
 
-
-
 gv.canvas.addEventListener('click', function () {
     const gridPositionX = gv.mouse.x - (gv.mouse.x % gv.cellSize) + gv.cellGap;
     const gridPositionY = gv.mouse.y - (gv.mouse.y % gv.cellSize) + gv.cellGap;
@@ -40,6 +39,8 @@ gv.canvas.addEventListener('click', function () {
     if (numberOfResources >= defenderCost){
         gv.defenders.push(new Defender(gridPositionX,gridPositionY));
         numberOfResources -= defenderCost;
+    } else {
+        gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, 'blue'));
     }
 
 })
@@ -92,6 +93,8 @@ function handleEnemy() {
         if (gv.enemies[i].health <= 0) {
             score += gv.enemies[i].maxHealth/10;
             let gainedResources = gv.enemies[i].maxHealth/5;
+            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,gv.enemies[i].x,gv.enemies[i].y,20,'red'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,130,50,20,'gold'))
             numberOfResources += gainedResources;
             const findPos = gv.enemyPositions.indexOf(gv.enemies[i].y);
             gv.enemyPositions.splice(findPos, 1);
@@ -139,10 +142,23 @@ function handleResource() {
         gv.resources[i].draw();
         if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) {
             numberOfResources += gv.resources[i].amount;
+            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'black'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount,130,50,20,'gold'))
             gv.resources.splice(i, 1);
             i--;
         }
         
+    }
+}
+
+function handleFloatingMessage() {
+    for (let i = 0; i < gv.floatingMessages.length; i++) {
+        gv.floatingMessages[i].update();
+        gv.floatingMessages[i].draw();
+        if (gv.floatingMessages[i].lifeSpan >= 50) {
+            gv.floatingMessages.splice(i,1);
+            i--;
+        }
     }
 }
 
@@ -169,9 +185,7 @@ function handleGameStatus() {
         if (score >= winningScore) {
             gv.ctx.fillText('No more enemies', 200, 45);
         }  
-    } else {
-        
-    }
+    } 
     if (score >= winningScore && gv.enemies.length === 0) {
         result = 1;
         gameOver = true;
@@ -183,11 +197,12 @@ function animate() {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);
         gv.ctx.fillStyle = 'blue';
         gv.ctx.fillRect(0,0,gv.controlBar.width, gv.controlBar.height);
-        handleGameGrid();
+        handleGameGrid();  
         handleDefender();
         handleEnemy();
         handleResource();
         handleProjectile();
+        handleFloatingMessage();
         frame++;
         requestAnimationFrame(animate);
     } else {
