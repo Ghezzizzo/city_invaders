@@ -225,4 +225,4 @@ function createBtn(text,action) {
 }
 
 
-export {createGrid,handleGameGrid,animate,collision,valuesList,createValues};
+export {createGrid,handleGameGrid,animate,collision,valuesList,createValues,frame};
