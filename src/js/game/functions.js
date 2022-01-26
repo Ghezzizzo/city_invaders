@@ -95,7 +95,7 @@ function handleEnemy() {
             score += gv.enemies[i].maxHealth/10;
             let gainedResources = gv.enemies[i].maxHealth/5;
             gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,gv.enemies[i].x,gv.enemies[i].y,20,'red'))
-            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,130,50,20,'gold'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,275,50,15,'gold'))
             numberOfResources += gainedResources;
             const findPos = gv.enemyPositions.indexOf(gv.enemies[i].y);
             gv.enemyPositions.splice(findPos, 1);
@@ -144,7 +144,7 @@ function handleResource() {
         if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) {
             numberOfResources += gv.resources[i].amount;
             gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'black'))
-            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount,130,50,20,'gold'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount,275,50,15,'gold'))
             gv.resources.splice(i, 1);
             i--;
         }
@@ -178,13 +178,13 @@ function handleGameStatus() {
     if (!gameOver) {
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '20px Stick No Bills';
-        gv.ctx.fillText('Resources: ' + numberOfResources, 180, 65);
+        gv.ctx.fillText('Resources: ' + numberOfResources, 280, 65);
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '20px Stick No Bills';
-        gv.ctx.fillText('Score: ' + score, 180, 45);
-        gv.ctx.fillText('Defender cost: ' + defenderCost, 380, 65);
+        gv.ctx.fillText('Score: ' + score, 280, 45);
+        gv.ctx.fillText('Defender cost: ' + defenderCost, 480, 65);
         if (score >= winningScore) {
-            gv.ctx.fillText('No more enemies', 380, 45);
+            gv.ctx.fillText('No more enemies', 480, 45);
         }  
     } 
     if (score >= winningScore && gv.enemies.length === 0) {

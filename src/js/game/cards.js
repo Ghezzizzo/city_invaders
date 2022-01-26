@@ -1,54 +1,106 @@
-import { defender1,defender2 } from "./Defender";
+import { defenderList } from "./Defender";
 import * as gv from "./global_variables";
 import {collision} from "./functions";
 
-let choosenDefender = 1;
+let choosenDefender = 0;
 
-const card1 = {
-    x: 10,
-    y: 10,
-    width: 70,
-    height: 85
-}
-
-const card2 = {
-    x: 90,
-    y: 10,
-    width: 70,
-    height: 85
-}
+const cards = [
+    {
+        x: 10,
+        y: 10,
+        width: 70,
+        height: 85,
+        drawStats:{
+            cut:{
+                x:0,
+                y:0,
+                width: 194,
+                height: 194,
+            },
+            pos:{
+                x:0,
+                y:5,
+                width: 194/2,
+                height: 194/2,
+            }
+        }
+    },
+    {
+        x: 90,
+        y: 10,
+        width: 70,
+        height: 85,
+        drawStats:{
+            cut:{
+                x:0,
+                y:0,
+                width: 194,
+                height: 194,
+            },
+            pos:{
+                x:80,
+                y:5,
+                width: 194/2,
+                height: 194/2,
+            }
+        }
+    },
+    {
+        x: 170,
+        y: 10,
+        width: 70,
+        height: 85,
+        drawStats:{
+            cut:{
+                x:0,
+                y:0,
+                width: 128,
+                height: 128,
+            },
+            pos:{
+                x:172,
+                y:30,
+                width: 128/2,
+                height: 128/2,
+            }
+        }
+    }
+]
 
 
 
 function chooseDefender() {
-    let card1stroke = 'black';
-    let card2stroke = 'black';
-if (collision(gv.mouse, card1) && gv.mouse.clicked) {
-    choosenDefender = 1;
-} else if(collision(gv.mouse, card2) && gv.mouse.clicked){
-    choosenDefender = 2;
-}
-if (choosenDefender === 1) {
-    card1stroke = 'gold';
-    card2stroke = 'black';
-}else if(choosenDefender === 2) {
-    card1stroke = 'black';
-    card2stroke = 'gold';
-} else {
-    card1stroke = 'black';
-    card2stroke = 'black';
-}
+    let cardStroke = [];
+
+    for (let i = 0; i < cards.length; i++) {
+        cardStroke.push('black');
+        if (collision(gv.mouse, cards[i]) && gv.mouse.clicked) {
+            choosenDefender = i;
+        }
+    }
+
+    for (let i = 0; i < cards.length; i++) {
+        if (choosenDefender === i) {
+            cardStroke[i] = 'gold';
+        }
+    }
 
     gv.ctx.lineWidth = 1;
     gv.ctx.fillStyle = 'rgba(0,0,0,0.2)';
-    gv.ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
-    gv.ctx.strokeStyle = card1stroke;
-    gv.ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
-    gv.ctx.drawImage(defender1, 0, 0, 194, 194, 0, 5, 194/2, 194/2);
-    gv.ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-    gv.ctx.drawImage(defender2, 0, 0, 194, 194, 80, 5, 194/2, 194/2);
-    gv.ctx.strokeStyle = card2stroke;
-    gv.ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
+    
+    for (let i = 0; i < cards.length; i++) {
+        createCards(cards[i],cardStroke[i],defenderList[i]);
+    }
+}
+
+function createCards(card,cardStroke,img) {
+    gv.ctx.fillRect(card.x, card.y, card.width, card.height);
+    gv.ctx.strokeStyle = cardStroke;
+    gv.ctx.strokeRect(card.x, card.y, card.width, card.height);
+    gv.ctx.drawImage(img, card.drawStats.cut.x, card.drawStats.cut.y,
+        card.drawStats.cut.width, card.drawStats.cut.height, card.drawStats.pos.x,
+        card.drawStats.pos.y, card.drawStats.pos.width, card.drawStats.pos.height);
+
 }
 
 export {choosenDefender,chooseDefender};

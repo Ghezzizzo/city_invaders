@@ -25,7 +25,12 @@ export class Enemy {
         this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;
-        this.maxFrame = 4;
+        if (this.enemyType === enemy1) {
+            this.maxFrame = 4; 
+        } else if (this.enemyType === enemy2){
+            this.maxFrame = 7;
+        }
+       
         this.spriteWidth = 256;
         this.spriteHeight = 256;
     }

@@ -3,6 +3,7 @@ import { Projectile } from "./Projectile";
 import { valuesList } from "./functions";
 import defenderOne from '../../img/defender1.png';
 import defenderTwo from '../../img/defender2.png';
+import defenderThree from '../../img/defender3.png';
 import { frame } from "./functions";
 import { choosenDefender } from "./cards";
 
@@ -10,6 +11,10 @@ const defender1 = new Image();
 defender1.src = defenderOne;
 const defender2 = new Image();
 defender2.src = defenderTwo;
+const defender3 = new Image();
+defender3.src = defenderThree;
+
+const defenderList = [defender1,defender2,defender3];
 
 export class Defender {
     constructor(x,y) {
@@ -37,17 +42,14 @@ export class Defender {
         gv.ctx.fillStyle = 'black';
         gv.ctx.font = '25px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +32, this.y+10);
-        // gv.ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
-        if (this.choosenDefender === 1) {
-            gv.ctx.drawImage(defender1, this.frameX * this.spriteWidth, 
-                this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
-                this.x, this.y, this.width, this.height);
-        } else if (this.choosenDefender === 2) {
-            gv.ctx.drawImage(defender2, this.frameX * this.spriteWidth, 
-                this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
-                this.x, this.y, this.width, this.height);
-        }
-  
+        for (let i = 0; i < defenderList.length; i++) {
+            if (this.choosenDefender === i) {
+                gv.ctx.drawImage(defenderList[i], this.frameX * this.spriteWidth, 
+                    this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
+                    this.x, this.y, this.width, this.height);
+        }    
+    }
+        
 
     }
     update(){
@@ -82,4 +84,4 @@ export class Defender {
     }
 }
 
-export {defender1, defender2};
+export {defenderList};
