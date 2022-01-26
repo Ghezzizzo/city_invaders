@@ -4,6 +4,7 @@ import {Enemy} from "./Enemy";
 import { Defender } from "./Defender";
 import {Resourse} from './Resource';
 import { floatingMasseage } from "./FloatingMessage";
+import {chooseDefender} from './cards';
 
 let cookieText = document.cookie;
 let valuesList = [];
@@ -177,13 +178,13 @@ function handleGameStatus() {
     if (!gameOver) {
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '20px Stick No Bills';
-        gv.ctx.fillText('Resources: ' + numberOfResources, 20, 65);
+        gv.ctx.fillText('Resources: ' + numberOfResources, 180, 65);
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '20px Stick No Bills';
-        gv.ctx.fillText('Score: ' + score, 20, 45);
-        gv.ctx.fillText('Defender cost: ' + defenderCost, 200, 65);
+        gv.ctx.fillText('Score: ' + score, 180, 45);
+        gv.ctx.fillText('Defender cost: ' + defenderCost, 380, 65);
         if (score >= winningScore) {
-            gv.ctx.fillText('No more enemies', 200, 45);
+            gv.ctx.fillText('No more enemies', 380, 45);
         }  
     } 
     if (score >= winningScore && gv.enemies.length === 0) {
@@ -200,6 +201,7 @@ function animate() {
         handleGameGrid();  
         handleDefender();
         handleEnemy();
+        chooseDefender();
         handleResource();
         handleProjectile();
         handleFloatingMessage();

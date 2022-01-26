@@ -2,10 +2,13 @@ import * as gv from "./global_variables";
 import { Projectile } from "./Projectile";
 import { valuesList } from "./functions";
 import defenderOne from '../../img/defender1.png';
+import defenderTwo from '../../img/defender2.png';
 import { frame } from "./functions";
 
 const defender1 = new Image();
 defender1.src = defenderOne;
+const defender2 = new Image();
+defender2.src = defenderTwo;
 
 export class Defender {
     constructor(x,y) {
@@ -58,3 +61,5 @@ export class Defender {
 
     }
 }
+
+export {defender1, defender2};

@@ -19,5 +19,11 @@ gv.canvas.addEventListener('mouseleave', function () {
     gv.mouse.y = undefined;
 })
 
+gv.canvas.addEventListener('mousedown', function () {
+    gv.mouse.clicked = true;
+})
+gv.canvas.addEventListener('mouseup', function () {
+    gv.mouse.clicked = false;
+})
 // function for run the game
 animate();
