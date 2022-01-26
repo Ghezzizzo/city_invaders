@@ -4,6 +4,7 @@ import { valuesList } from "./functions";
 import defenderOne from '../../img/defender1.png';
 import defenderTwo from '../../img/defender2.png';
 import { frame } from "./functions";
+import { choosenDefender } from "./cards";
 
 const defender1 = new Image();
 defender1.src = defenderOne;
@@ -28,17 +29,25 @@ export class Defender {
         this.maxFrame = 16;
         this.spriteWidth = 194;
         this.spriteHeight = 194;
+        this.choosenDefender = choosenDefender;
     }
     draw(){
         // gv.ctx.fillStyle = 'blue';
         // gv.ctx.fillRect(this.x, this.y, this.width, this.height);
-        gv.ctx.fillStyle = 'gold';
-        gv.ctx.font = '30px Stick No Bills';
-        gv.ctx.fillText(Math.floor(this.health), this.x +22, this.y+35);
+        gv.ctx.fillStyle = 'black';
+        gv.ctx.font = '25px Stick No Bills';
+        gv.ctx.fillText(Math.floor(this.health), this.x +32, this.y+10);
         // gv.ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
-        gv.ctx.drawImage(defender1, this.frameX * this.spriteWidth, 
-            this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
-            this.x, this.y, this.width, this.height);
+        if (this.choosenDefender === 1) {
+            gv.ctx.drawImage(defender1, this.frameX * this.spriteWidth, 
+                this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
+                this.x, this.y, this.width, this.height);
+        } else if (this.choosenDefender === 2) {
+            gv.ctx.drawImage(defender2, this.frameX * this.spriteWidth, 
+                this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
+                this.x, this.y, this.width, this.height);
+        }
+  
 
     }
     update(){
@@ -47,13 +56,24 @@ export class Defender {
             else this.frameX = this.minFrame;
             if (this.frameX === 15) this.shootNow = true;
         }
-        if (this.shooting) {
-            this.minFrame = 0;
-            this.maxFrame = 17;
-        } else {
-            this.minFrame = 17;
-            this.maxFrame = 24;
+        if (this.choosenDefender === 1) {
+            if (this.shooting) {
+                this.minFrame = 0;
+                this.maxFrame = 17;
+            } else {
+                this.minFrame = 17;
+                this.maxFrame = 24;
+            }  
+        } else if(this.choosenDefender === 2){
+            if (this.shooting) {
+                this.minFrame =13;
+                this.maxFrame = 28;
+            } else {
+                this.minFrame = 0;
+                this.maxFrame = 12;
+            }  
         }
+        
         if (this.shooting && this.shootNow) {
             gv.projectiles.push(new Projectile(this.x + 70, this.y + 40))
             this.shootNow = false;

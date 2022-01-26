@@ -51,4 +51,4 @@ if (choosenDefender === 1) {
     gv.ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
 }
 
-export {chooseDefender};
+export {choosenDefender,chooseDefender};
