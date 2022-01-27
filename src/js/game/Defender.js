@@ -1,6 +1,6 @@
 import * as gv from "./global_variables";
 import { Projectile } from "./Projectile";
-import { valuesList,frame,chosenDefender } from "./functions";
+import {collisionArea,frame,chosenDefender } from "./functions";
 import {cards} from './cards';
 
 export class Defender {
@@ -11,7 +11,7 @@ export class Defender {
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize - gv.cellGap* 2;
         // stats
-        this.health = 50 + valuesList[8] * 4;
+        this.health = gv.health1;
 
         // animation
         this.chosenDefender = chosenDefender;
@@ -20,15 +20,14 @@ export class Defender {
         this.frameX = this.minFrame;
         this.frameY = 0;
         
-        this.spriteWidth = cards[this.chosenDefender].drawStats.cut.width;
-        this.spriteHeight = cards[this.chosenDefender].drawStats.cut.height;
+        this.spriteWidth = cards[this.chosenDefender].draw.cut.width;
+        this.spriteHeight = cards[this.chosenDefender].draw.cut.height;
     
     }
     draw(){
         ///////////////////////////
         // collision area
-        // gv.ctx.fillStyle = 'blue';
-        // gv.ctx.fillRect(this.x, this.y, this.width, this.height);
+        //collisionArea('blue',this.x, this.y, this.width, this.height);
         //////////////////////////
         gv.ctx.fillStyle = 'black';
         gv.ctx.font = '25px Stick No Bills';
@@ -56,7 +55,7 @@ export class Shooter extends Defender {
         this.shootNow = false;
         this.shootFrame = cards[this.chosenDefender].shootFrame;
         this.projectiles = [];
-        this.speedFire = 20 + Math.floor(valuesList[2]*0.6);
+        this.speedFire = gv.speedFire1;
     }
 
     update(){

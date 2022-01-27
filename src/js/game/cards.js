@@ -1,10 +1,10 @@
 const cards = [
-    {
+    { // blue shooter
         x: 10,
         y: 10,
         width: 70,
         height: 85,
-        drawStats:{
+        draw:{
             cut:{
                 x:0,
                 y:0,
@@ -31,12 +31,12 @@ const cards = [
         canShoot: true,
         shootFrame: 13,
     },
-    {
+    { // purple shooter
         x: 90,
         y: 10,
         width: 70,
         height: 85,
-        drawStats:{
+        draw:{
             cut:{
                 x:0,
                 y:0,
@@ -63,12 +63,12 @@ const cards = [
         canShoot: true,
         shootFrame: 17,
     },
-    {
+    { // Egg shild
         x: 170,
         y: 10,
         width: 70,
         height: 85,
-        drawStats:{
+        draw:{
             cut:{
                 x:0,
                 y:0,
@@ -78,8 +78,8 @@ const cards = [
             pos:{
                 x:172,
                 y:30,
-                width: 128/2,
-                height: 128/2,
+                width: 130/2,
+                height: 130/2,
             }
         },
         anim: {

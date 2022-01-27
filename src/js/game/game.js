@@ -1,12 +1,11 @@
 import '../../css/game-style.css';
 import {createGrid,animate,createValues} from './functions';
 import * as gv from "./global_variables";
-
 window.addEventListener('resize', function() {
     canvasPosition = gv.canvas.getBoundingClientRect();
 })
 
-createValues();
+
 
 // create grid for the game
 createGrid();

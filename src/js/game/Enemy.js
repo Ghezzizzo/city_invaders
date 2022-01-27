@@ -1,8 +1,7 @@
 import * as gv from "./global_variables";
-import { valuesList } from "./functions";
 import enemyOne from '../../img/enemy1.png';
 import enemyTwo from '../../img/enemy2.png';
-import { frame } from "./functions";
+import { collisionArea,frame } from "./functions";
 const enemyTypes = [];
 const enemy1 = new Image();
 const enemy2 = new Image();
@@ -17,9 +16,9 @@ export class Enemy {
         this.y = verticalPosition;
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize- gv.cellGap * 2;
-        this.speed =  Math.random() * 0.2 + valuesList[4] * 0.1;
+        this.speed = gv.speeedEnemy1;
         this.movement = this.speed;
-        this.health = 100 + valuesList[9]*100;
+        this.health = gv.enemyHealth1;
         this.maxHealth = this.health;
         this.enemyType = enemyTypes[Math.floor(Math.random()* enemyTypes.length)];
         this.frameX = 0;
@@ -43,8 +42,7 @@ export class Enemy {
         // console.log(this.movement);
     }
     draw(){
-        // gv.ctx.fillStyle = 'red';
-        // gv.ctx.fillRect(this.x, this.y, this.width, this.height);
+        //collisionArea('red',this.x, this.y, this.width, this.height)
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '30px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +22, this.y+35);

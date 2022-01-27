@@ -3,29 +3,20 @@ import { Cell } from "./Cell";
 import {Enemy} from "./Enemy";
 import { Defender, Shooter } from "./Defender";
 import {Resourse} from './Resource';
-import { floatingMasseage } from "./FloatingMessage";
+import {floatingMasseage } from "./FloatingMessage";
 import {cards} from './cards';
 
-let cookieText = document.cookie;
-let valuesList = [];
 let frame = 0;
 let enemiesInterval = 1000;
-let numberOfResources;
-let speedSpawn;
-let winningScore;
-let defenderCost;
 let score = 0;
 let result = 1;
 let gameOver = false;
 let chosenDefender = 0;
+let numberOfResources = gv.startResources;
 
-function createValues() {
-    valuesList = JSON.parse("[" + cookieText + "]");
-
-    numberOfResources = 300 + valuesList[3] * 10;
-    speedSpawn = 200 - valuesList[6]*10;
-    defenderCost = Math.floor(80 + 1/(valuesList[1]*10+1)) ;
-    winningScore = Math.floor(1000 - 1/valuesList[0]*100) ;
+function createValues(params) {
+    let newArray = JSON.parse("[" + params + "]");
+    return newArray;
 }
 
 gv.canvas.addEventListener('click', function () {
@@ -36,13 +27,13 @@ gv.canvas.addEventListener('click', function () {
         if (gv.defenders[i].x === gridPositionX && 
             gv.defenders[i].y === gridPositionY) return;
     }
-    if (numberOfResources >= defenderCost){
+    if (numberOfResources >= gv.defenderCost){
         if (cards[chosenDefender].canShoot) {
             gv.defenders.push(new Shooter(gridPositionX,gridPositionY));
         } else {
             gv.defenders.push(new Defender(gridPositionX,gridPositionY));
         }
-        numberOfResources -= defenderCost;
+        numberOfResources -= gv.defenderCost;
     } else {
         gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, 'blue'));
     }
@@ -78,7 +69,7 @@ function handleDefender() {
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.defenders[i] && collision(gv.defenders[i], gv.enemies[j])) {
                 gv.enemies[j].movement = 0;
-                gv.defenders[i].health -= 0.2 + 1/valuesList[14];
+                gv.defenders[i].health -= gv.enemyDamage;
             }
             if(gv.defenders[i] && gv.defenders[i].health <= 0){
                 gv.defenders.splice(i, 1);
@@ -109,7 +100,7 @@ function handleEnemy() {
             i--;
         }
     }
-    if (frame % enemiesInterval === 0 && score < winningScore) {
+    if (frame % enemiesInterval === 0 && score < gv.winningScore) {
         let verticalPosition = Math.floor(Math.random() * 5 + 1) * gv.cellSize + gv.cellGap;
         gv.enemies.push(new Enemy(verticalPosition));
         gv.enemyPositions.push(verticalPosition);
@@ -141,7 +132,7 @@ function handleProjectile() {
 }
 
 function handleResource() {
-    if (frame % speedSpawn === 0 && score < winningScore) {
+    if (frame % gv.speedSpawn === 0 && score < gv.winningScore) {
         gv.resources.push(new Resourse());
     }
     for (let i = 0; i < gv.resources.length; i++) {
@@ -187,12 +178,12 @@ function handleGameStatus() {
         gv.ctx.fillStyle = 'gold';
         gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText('Score: ' + score, 280, 45);
-        gv.ctx.fillText('Defender cost: ' + defenderCost, 480, 65);
-        if (score >= winningScore) {
+        gv.ctx.fillText('Defender cost: ' + gv.defenderCost, 480, 65);
+        if (score >= gv.winningScore) {
             gv.ctx.fillText('No more enemies', 480, 45);
         }  
     } 
-    if (score >= winningScore && gv.enemies.length === 0) {
+    if (score >= gv.winningScore && gv.enemies.length === 0) {
         result = 1;
         gameOver = true;
     }
@@ -259,11 +250,15 @@ function createCards(card,cardStroke,img) {
     gv.ctx.fillRect(card.x, card.y, card.width, card.height);
     gv.ctx.strokeStyle = cardStroke;
     gv.ctx.strokeRect(card.x, card.y, card.width, card.height);
-    gv.ctx.drawImage(img, card.drawStats.cut.x, card.drawStats.cut.y,
-        card.drawStats.cut.width, card.drawStats.cut.height, card.drawStats.pos.x,
-        card.drawStats.pos.y, card.drawStats.pos.width, card.drawStats.pos.height);
+    gv.ctx.drawImage(img, card.draw.cut.x, card.draw.cut.y,
+        card.draw.cut.width, card.draw.cut.height, card.draw.pos.x,
+        card.draw.pos.y, card.draw.pos.width, card.draw.pos.height);
 
 }
 
+function collisionArea(color,x,y,width,height) {
+    gv.ctx.fillStyle = color;
+    gv.ctx.fillRect(x, y, width, height);
+}
 
-export {createGrid,handleGameGrid,animate,collision,valuesList,createValues,frame,chosenDefender};
+export {collisionArea,createGrid,handleGameGrid,animate,collision,createValues,frame,chosenDefender};
