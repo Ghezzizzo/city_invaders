@@ -139,6 +139,7 @@ function handleResource() {
     }
     for (let i = 0; i < gv.resources.length; i++) {
         gv.resources[i].draw();
+        gv.resources[i].update();
         if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) {
             numberOfResources += gv.resources[i].amount;
             gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'#2f3640'))

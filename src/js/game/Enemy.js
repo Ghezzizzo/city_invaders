@@ -2,6 +2,7 @@ import * as gv from "./global_variables";
 import enemyOne from '../../img/enemy1.png';
 import enemyTwo from '../../img/enemy2.png';
 import { collisionArea,frame } from "./functions";
+
 const enemyTypes = [];
 const enemy1 = new Image();
 const enemy2 = new Image();
