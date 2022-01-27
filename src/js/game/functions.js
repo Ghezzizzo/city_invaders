@@ -35,7 +35,7 @@ gv.canvas.addEventListener('click', function () {
         }
         numberOfResources -= gv.defenderCost;
     } else {
-        gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, 'blue'));
+        gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, '#2f3640'));
     }
 
 })
@@ -69,7 +69,9 @@ function handleDefender() {
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.defenders[i] && collision(gv.defenders[i], gv.enemies[j])) {
                 gv.enemies[j].movement = 0;
-                gv.defenders[i].health -= gv.enemyDamage;
+                if( frame % gv.enemyDamageSpeed === 0) gv.defenders[i].health -= gv.enemyDamage;
+            } else {
+                // gv.enemies[j].movement = gv.enemies[j].speed;
             }
             if(gv.defenders[i] && gv.defenders[i].health <= 0){
                 gv.defenders.splice(i, 1);
@@ -92,7 +94,7 @@ function handleEnemy() {
             score += gv.enemies[i].maxHealth/10;
             let gainedResources = gv.enemies[i].maxHealth/5;
             gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,gv.enemies[i].x,gv.enemies[i].y,20,'red'))
-            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,275,50,15,'gold'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,375,45,15,'#f5f6fa'))
             numberOfResources += gainedResources;
             const findPos = gv.enemyPositions.indexOf(gv.enemies[i].y);
             gv.enemyPositions.splice(findPos, 1);
@@ -139,8 +141,8 @@ function handleResource() {
         gv.resources[i].draw();
         if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) {
             numberOfResources += gv.resources[i].amount;
-            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'black'))
-            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount,275,50,15,'gold'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'#2f3640'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount,375,45,15,'#f5f6fa'))
             gv.resources.splice(i, 1);
             i--;
         }
@@ -172,10 +174,10 @@ function collision(first, second) {
 
 function handleGameStatus() {
     if (!gameOver) {
-        gv.ctx.fillStyle = 'gold';
+        gv.ctx.fillStyle = '#f5f6fa';
         gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText('Resources: ' + numberOfResources, 280, 65);
-        gv.ctx.fillStyle = 'gold';
+        gv.ctx.fillStyle = '#f5f6fa';
         gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText('Score: ' + score, 280, 45);
         gv.ctx.fillText('Defender cost: ' + gv.defenderCost, 480, 65);
@@ -192,7 +194,7 @@ function handleGameStatus() {
 function animate() {
     if (!gameOver) {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);
-        gv.ctx.fillStyle = 'blue';
+        gv.ctx.fillStyle = '#2f3640';
         gv.ctx.fillRect(0,0,gv.controlBar.width, gv.controlBar.height);
         handleGameGrid();  
         handleDefender();
@@ -205,7 +207,7 @@ function animate() {
         requestAnimationFrame(animate);
     } else {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);  
-        gv.ctx.fillStyle = 'black';
+        gv.ctx.fillStyle = '#2f3640';
         gv.ctx.font = '120px Stick No Bills';
         gv.ctx.textAlign = "center";
         gv.ctx.fillText(gv.endGame[result], gv.canvas.width/2, gv.canvas.height/2);
@@ -226,7 +228,7 @@ function chooseDefender() {
     let cardStroke = [];
 
     for (let i = 0; i < cards.length; i++) {
-        cardStroke.push('black');
+        cardStroke.push('#2f3640');
         if (collision(gv.mouse, cards[i]) && gv.mouse.clicked) {
             chosenDefender = i;
         }
@@ -234,7 +236,7 @@ function chooseDefender() {
 
     for (let i = 0; i < cards.length; i++) {
         if (chosenDefender === i) {
-            cardStroke[i] = 'gold';
+            cardStroke[i] = '#f5f6fa';
         }
     }
 

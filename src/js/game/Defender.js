@@ -27,9 +27,9 @@ export class Defender {
     draw(){
         ///////////////////////////
         // collision area
-        //collisionArea('blue',this.x, this.y, this.width, this.height);
+        // collisionArea('blue',this.x, this.y, this.width, this.height);
         //////////////////////////
-        gv.ctx.fillStyle = 'black';
+        gv.ctx.fillStyle = '#2f3640';
         gv.ctx.font = '25px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +32, this.y+10);
 

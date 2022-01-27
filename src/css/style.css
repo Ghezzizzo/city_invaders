@@ -35,7 +35,7 @@ h1 {
 
 .select-box .options-container {
   background: #2f3640;
-  color: hsl(228, 33%, 97%);
+  color: #f5f6fa;
   max-height: 0;
   width: 100%;
   opacity: 0;

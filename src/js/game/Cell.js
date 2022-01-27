@@ -1,5 +1,5 @@
 import * as gv from "./global_variables";
-import {createGrid,handleGameGrid,animate,collision} from './functions';
+import {collision} from './functions';
 
 export class Cell {
     constructor(x,y) {

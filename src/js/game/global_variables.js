@@ -49,3 +49,4 @@ export const speeedEnemy1 = Math.random() * 0.2 + valuesList[4] * 0.1;
 export const enemyHealth1 = 100 + valuesList[9]*100;
 export const projectilePower = 5 + valuesList[7];
 export const amount = Math.floor(10 + valuesList[11]*0.5);
+export const enemyDamageSpeed = 5;

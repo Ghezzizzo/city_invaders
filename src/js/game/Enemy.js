@@ -35,15 +35,14 @@ export class Enemy {
     }
     update(){
         this.x -= this.movement;
-        if (frame % 5 * this.movement === 0) {
+        if (frame % 5 === 0) {
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
         }
-        // console.log(this.movement);
     }
     draw(){
         //collisionArea('red',this.x, this.y, this.width, this.height)
-        gv.ctx.fillStyle = 'gold';
+        gv.ctx.fillStyle = 'red';
         gv.ctx.font = '30px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +22, this.y+35);
         // gv.ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
