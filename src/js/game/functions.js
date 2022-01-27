@@ -1,10 +1,10 @@
 import * as gv from "./global_variables";
 import { Cell } from "./Cell";
 import {Enemy} from "./Enemy";
-import { Defender } from "./Defender";
+import { Defender, Shooter } from "./Defender";
 import {Resourse} from './Resource';
 import { floatingMasseage } from "./FloatingMessage";
-import {chooseDefender} from './cards';
+import {cards} from './cards';
 
 let cookieText = document.cookie;
 let valuesList = [];
@@ -17,16 +17,15 @@ let defenderCost;
 let score = 0;
 let result = 1;
 let gameOver = false;
+let chosenDefender = 0;
 
 function createValues() {
     valuesList = JSON.parse("[" + cookieText + "]");
 
-    numberOfResources = 50 + valuesList[3] * 10;
+    numberOfResources = 300 + valuesList[3] * 10;
     speedSpawn = 200 - valuesList[6]*10;
-    defenderCost = Math.floor(80 + 1/valuesList[1]*10) ;
+    defenderCost = Math.floor(80 + 1/(valuesList[1]*10+1)) ;
     winningScore = Math.floor(1000 - 1/valuesList[0]*100) ;
-
-    console.log(valuesList);
 }
 
 gv.canvas.addEventListener('click', function () {
@@ -38,7 +37,11 @@ gv.canvas.addEventListener('click', function () {
             gv.defenders[i].y === gridPositionY) return;
     }
     if (numberOfResources >= defenderCost){
-        gv.defenders.push(new Defender(gridPositionX,gridPositionY));
+        if (cards[chosenDefender].canShoot) {
+            gv.defenders.push(new Shooter(gridPositionX,gridPositionY));
+        } else {
+            gv.defenders.push(new Defender(gridPositionX,gridPositionY));
+        }
         numberOfResources -= defenderCost;
     } else {
         gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, 'blue'));
@@ -64,11 +67,14 @@ function handleDefender() {
     for (let i = 0; i < gv.defenders.length; i++) {
         gv.defenders[i].draw();
         gv.defenders[i].update();
-        if (gv.enemyPositions.indexOf(gv.defenders[i].y) !== -1) {
-            gv.defenders[i].shooting = true;
-        } else {
-            gv.defenders[i].shooting = false;
+        if (cards[gv.defenders[i].chosenDefender].canShoot) {
+            if (gv.enemyPositions.indexOf(gv.defenders[i].y) !== -1) {
+                gv.defenders[i].shoot();
+            } else {
+                gv.defenders[i].idle();
+            }  
         }
+        
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.defenders[i] && collision(gv.defenders[i], gv.enemies[j])) {
                 gv.enemies[j].movement = 0;
@@ -101,7 +107,6 @@ function handleEnemy() {
             gv.enemyPositions.splice(findPos, 1);
             gv.enemies.splice(i, 1);
             i--;
-            console.log(score);
         }
     }
     if (frame % enemiesInterval === 0 && score < winningScore) {
@@ -226,5 +231,39 @@ function createBtn(text,action) {
     gv.btnContainer.appendChild(btn);
 }
 
+function chooseDefender() {
+    let cardStroke = [];
 
-export {createGrid,handleGameGrid,animate,collision,valuesList,createValues,frame};
+    for (let i = 0; i < cards.length; i++) {
+        cardStroke.push('black');
+        if (collision(gv.mouse, cards[i]) && gv.mouse.clicked) {
+            chosenDefender = i;
+        }
+    }
+
+    for (let i = 0; i < cards.length; i++) {
+        if (chosenDefender === i) {
+            cardStroke[i] = 'gold';
+        }
+    }
+
+    gv.ctx.lineWidth = 1;
+    gv.ctx.fillStyle = 'rgba(0,0,0,0.2)';
+    
+    for (let i = 0; i < cards.length; i++) {
+        createCards(cards[i],cardStroke[i],gv.defenderList[i]);
+    }
+}
+
+function createCards(card,cardStroke,img) {
+    gv.ctx.fillRect(card.x, card.y, card.width, card.height);
+    gv.ctx.strokeStyle = cardStroke;
+    gv.ctx.strokeRect(card.x, card.y, card.width, card.height);
+    gv.ctx.drawImage(img, card.drawStats.cut.x, card.drawStats.cut.y,
+        card.drawStats.cut.width, card.drawStats.cut.height, card.drawStats.pos.x,
+        card.drawStats.pos.y, card.drawStats.pos.width, card.drawStats.pos.height);
+
+}
+
+
+export {createGrid,handleGameGrid,animate,collision,valuesList,createValues,frame,chosenDefender};

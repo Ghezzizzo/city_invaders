@@ -1,3 +1,17 @@
+import defenderOne from '../../img/defender1.png';
+import defenderTwo from '../../img/defender2.png';
+import defenderThree from '../../img/defender3.png';
+
+
+const defender1 = new Image();
+defender1.src = defenderOne;
+const defender2 = new Image();
+defender2.src = defenderTwo;
+const defender3 = new Image();
+defender3.src = defenderThree;
+
+export const defenderList = [defender1,defender2,defender3];
+
 export const canvas = document.getElementById('canvas1');
 export const ctx = canvas.getContext('2d');
 canvas.width = 900;
@@ -19,8 +33,3 @@ export const controlBar = {width:canvas.width, height: cellSize}
 export const mouse = { x: 10, y: 10, width:0.1, height:0.1, clicked: false}
 
 export let canvasPosition = canvas.getBoundingClientRect();
-
-
-window.addEventListener('resize', function name(params) {
-    canvasPosition = canvas.getBoundingClientRect();
-})
