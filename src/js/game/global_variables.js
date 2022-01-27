@@ -50,3 +50,7 @@ export const enemyHealth1 = 100 + valuesList[9]*100;
 export const projectilePower = 5 + valuesList[7];
 export const amount = Math.floor(10 + valuesList[11]*0.5);
 export const enemyDamageSpeed = 5;
+
+window.addEventListener('resize', function() {
+    canvasPosition = canvas.getBoundingClientRect();
+})

@@ -30,6 +30,10 @@ const cards = [
         },
         canShoot: true,
         shootFrame: 13,
+        levitate:{
+            shoot: true,
+            idle: false,
+        },
     },
     { // purple shooter
         x: 90,
@@ -62,6 +66,10 @@ const cards = [
         },
         canShoot: true,
         shootFrame: 17,
+        levitate:{
+            shoot: false,
+            idle: true,
+        },
     },
     { // Egg shild
         x: 170,

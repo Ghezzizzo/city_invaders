@@ -36,7 +36,7 @@ export class Enemy {
     }
     update(){
         this.x -= this.movement;
-        if (frame % 5 === 0) {
+        if (frame % 7 === 0) {
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
         }
@@ -46,9 +46,16 @@ export class Enemy {
         gv.ctx.fillStyle = 'red';
         gv.ctx.font = '30px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +22, this.y+35);
+        // ombra
+        gv.ctx.beginPath();
+        gv.ctx.fillStyle = 'rgba(0, 0, 0,0.5)';
+        gv.ctx.ellipse(this.x + 45, this.y + 85, 25, 5, Math.PI, 0, 2 * Math.PI);
+        gv.ctx.fill();
+
         // gv.ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
         gv.ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 
             this.frameY * this.spriteHeight, this.spriteWidth, 
             this.spriteHeight, this.x, this.y, this.width, this.height);
+
     }
 }

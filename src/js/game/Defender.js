@@ -10,6 +10,8 @@ export class Defender {
         this.y = y;
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize - gv.cellGap* 2;
+        this.levitate = false;
+
         // stats
         this.health = gv.health1;
 
@@ -33,6 +35,14 @@ export class Defender {
         gv.ctx.font = '25px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +32, this.y+10);
 
+        if (!this.levitate) {
+            gv.ctx.beginPath();
+            gv.ctx.fillStyle = 'rgba(0, 0, 0,0.5)';
+            gv.ctx.ellipse(this.x + 48, this.y + 80, 25, 5, Math.PI, 0, 2 * Math.PI);
+            gv.ctx.fill();
+        }
+        
+
         gv.ctx.drawImage(gv.defenderList[this.chosenDefender], this.frameX * this.spriteWidth, 
             this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
             this.x, this.y, this.width, this.height);
@@ -40,6 +50,11 @@ export class Defender {
     idle(){
         this.minFrame = cards[this.chosenDefender].anim.idle.start;
         this.maxFrame = cards[this.chosenDefender].anim.idle.end;
+        if (cards[this.chosenDefender].levitate.idle) {
+            this.levitate = false;
+        } else {
+            this.levitate = true;
+        }
     }
     update(){
         if (frame % 5 === 0) {
@@ -73,6 +88,11 @@ export class Shooter extends Defender {
         if (this.shootNow) {
             gv.projectiles.push(new Projectile(this.x + 70, this.y + 40));
             this.shootNow = false;
+            if (cards[this.chosenDefender].levitate.shoot) {
+                this.levitate = false;
+            } else {
+                this.levitate = true;
+            }
         }
         
     }

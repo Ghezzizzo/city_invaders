@@ -5,6 +5,7 @@ import { Defender, Shooter } from "./Defender";
 import {Resourse} from './Resource';
 import {floatingMasseage } from "./FloatingMessage";
 import {cards} from './cards';
+import terrain from "../../img/background.jpg";
 
 let frame = 0;
 let enemiesInterval = 1000;
@@ -13,6 +14,9 @@ let result = 1;
 let gameOver = false;
 let chosenDefender = 0;
 let numberOfResources = gv.startResources;
+
+const ground = new Image();
+ground.src = terrain;
 
 function createValues(params) {
     let newArray = JSON.parse("[" + params + "]");
@@ -195,7 +199,14 @@ function handleGameStatus() {
 function animate() {
     if (!gameOver) {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);
-        gv.ctx.fillStyle = '#2f3640';
+        gv.ctx.drawImage(ground, 0,400,1920,200, 0, 0, gv.canvas.width,gv.cellSize);
+        gv.ctx.drawImage(ground, 0, 680,gv.canvas.width,540, 0, gv.cellSize, gv.canvas.width,gv.cellSize*3);
+        gv.ctx.drawImage(ground, 0, 720,gv.canvas.width,540, 0, gv.cellSize * 3 + 20, gv.canvas.width,gv.cellSize*3);
+        gv.ctx.drawImage(ground, 0, 710,gv.canvas.width,180, 0, gv.cellSize*5 +20, gv.canvas.width,gv.cellSize);
+        // gv.ctx.drawImage(ground, 0, 720,gv.canvas.width,180, 0, gv.cellSize*4, gv.canvas.width,gv.cellSize);
+        // gv.ctx.drawImage(ground, 0, 720,gv.canvas.width,180, 0, gv.cellSize*5, gv.canvas.width,gv.cellSize);
+    
+        gv.ctx.fillStyle = 'rgba(47, 54, 64,0.5)';
         gv.ctx.fillRect(0,0,gv.controlBar.width, gv.controlBar.height);
         handleGameGrid();  
         handleDefender();
