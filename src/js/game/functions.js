@@ -31,13 +31,13 @@ gv.canvas.addEventListener('click', function () {
         if (gv.defenders[i].x === gridPositionX && 
             gv.defenders[i].y === gridPositionY) return;
     }
-    if (numberOfResources >= gv.defenderCost){
+    if (numberOfResources >= cards[chosenDefender].cost){
         if (cards[chosenDefender].canShoot) {
             gv.defenders.push(new Shooter(gridPositionX,gridPositionY));
         } else {
             gv.defenders.push(new Defender(gridPositionX,gridPositionY));
         }
-        numberOfResources -= gv.defenderCost;
+        numberOfResources -= cards[chosenDefender].cost;
     } else {
         gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, '#f5f6fa'));
     }
@@ -73,7 +73,9 @@ function handleDefender() {
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.defenders[i] && collision(gv.defenders[i], gv.enemies[j])) {
                 gv.enemies[j].movement = 0;
-                if( frame % gv.enemyDamageSpeed === 0) gv.defenders[i].health -= gv.enemyDamage;
+                
+                if( frame % gv.enemyDamageSpeed === 0) gv.defenders[i].health -= gv.enemyDamage[gv.enemies[j].chosenEnemy];
+                
             } else {
                 // gv.enemies[j].movement = gv.enemies[j].speed;
             }
@@ -112,7 +114,6 @@ function handleEnemy() {
         gv.enemyPositions.push(verticalPosition);
         
         if (enemiesInterval > 200) enemiesInterval -= 100;
-        
     }
 }
 
@@ -126,8 +127,7 @@ function handleProjectile() {
                 gv.enemies[j].health -= gv.projectiles[i].power;
                 gv.projectiles.splice(i, 1);
                 i--;
-            }
-            
+            }   
         }
 
         if (gv.projectiles[i] && gv.projectiles[i].x > gv.canvas.width - gv.cellSize) {
@@ -138,7 +138,7 @@ function handleProjectile() {
 }
 
 function handleResource() {
-    if (frame % gv.speedSpawn === 0 && score < gv.winningScore) {
+    if (frame % gv.speedSpawnResources === 0 && score < gv.winningScore) {
         gv.resources.push(new Resourse());
     }
     for (let i = 0; i < gv.resources.length; i++) {
@@ -185,7 +185,6 @@ function handleGameStatus() {
         gv.ctx.fillStyle = '#f5f6fa';
         gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText('Score: ' + score, 280, 45);
-        gv.ctx.fillText('Defender cost: ' + gv.defenderCost, 480, 65);
         if (score >= gv.winningScore) {
             gv.ctx.fillText('No more enemies', 480, 45);
         }  
@@ -205,7 +204,6 @@ function animate() {
         gv.ctx.drawImage(ground, 0, 710,gv.canvas.width,180, 0, gv.cellSize*5 +20, gv.canvas.width,gv.cellSize);
         // gv.ctx.drawImage(ground, 0, 720,gv.canvas.width,180, 0, gv.cellSize*4, gv.canvas.width,gv.cellSize);
         // gv.ctx.drawImage(ground, 0, 720,gv.canvas.width,180, 0, gv.cellSize*5, gv.canvas.width,gv.cellSize);
-    
         gv.ctx.fillStyle = 'rgba(47, 54, 64,0.5)';
         gv.ctx.fillRect(0,0,gv.controlBar.width, gv.controlBar.height);
         handleGameGrid();  
@@ -252,10 +250,11 @@ function chooseDefender() {
         }
     }
 
-    gv.ctx.lineWidth = 1;
-    gv.ctx.fillStyle = 'rgba(0,0,0,0.2)';
+
     
     for (let i = 0; i < cards.length; i++) {
+        gv.ctx.lineWidth = 1;
+    gv.ctx.fillStyle = 'rgba(0,0,0,0.2)';
         createCards(cards[i],cardStroke[i],gv.defenderList[i]);
     }
 }
@@ -267,7 +266,11 @@ function createCards(card,cardStroke,img) {
     gv.ctx.drawImage(img, card.draw.cut.x, card.draw.cut.y,
         card.draw.cut.width, card.draw.cut.height, card.draw.pos.x,
         card.draw.pos.y, card.draw.pos.width, card.draw.pos.height);
-
+    
+    gv.ctx.fillStyle = '#f5f6fa';
+    gv.ctx.font = '16px Stick No Bills';
+    
+    gv.ctx.fillText(card.cost, card.x + 45, card.y + 14);
 }
 
 function collisionArea(color,x,y,width,height) {

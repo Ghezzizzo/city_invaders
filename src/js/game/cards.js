@@ -1,5 +1,8 @@
+import * as gv from "./global_variables";
+
 const cards = [
     { // blue shooter
+        cost: gv.defenderCost[0],
         x: 10,
         y: 10,
         width: 70,
@@ -36,6 +39,7 @@ const cards = [
         },
     },
     { // purple shooter
+        cost: gv.defenderCost[1],
         x: 90,
         y: 10,
         width: 70,
@@ -72,6 +76,7 @@ const cards = [
         },
     },
     { // Egg shild
+        cost: gv.defenderCost[2],
         x: 170,
         y: 10,
         width: 70,

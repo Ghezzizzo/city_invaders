@@ -10,12 +10,12 @@ export const btnGame = document.querySelector(".game-link");
 export const cityPar = document.querySelector(".city-par");
 
 export const glitch = [
-    "Score Goal","Shild Cost","Bullet Speed",
+    "Winning Score","Shild Cost","Bullet Damage",
     "Initial Sources","Enemy Speed","Enemy Damage",
     "Spawn Sourse Speed","Bullet Damage",
     "Defender Life","Enemy Life","Shild Life",
-    "Coin Value","Defender Cost","CENSURED",
-    "Enemy Damage","Enemy Speed","CENSURED"
+    "Coin Value","Defender Cost","Enemy Life",
+    "Enemy Damage","Enemy Speed","Enemy Damage Speed"
 ];
 // variables for API
 

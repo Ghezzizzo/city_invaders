@@ -38,18 +38,24 @@ export let canvasPosition = canvas.getBoundingClientRect();
 const cookieText = document.cookie;
 export const valuesList = createValues(cookieText);
 
-export const startResources = 300 + valuesList[3] * 10;
-export const speedSpawn = 200 - valuesList[6]*10;
-export const defenderCost = Math.floor(80 + 1/(valuesList[1]*10+1));
-export const winningScore = Math.floor(1000 * 1/(valuesList[0]*10+10));
-export const enemyDamage = 0.2 + 1/valuesList[14];
-export const speedFire1 = 20 + Math.floor(valuesList[2]*0.6);
-export const health1 = 50 + valuesList[8] * 4;
-export const speeedEnemy1 = Math.random() * 0.2 + valuesList[4] * 0.1;
-export const enemyHealth1 = 100 + valuesList[9]*100;
-export const projectilePower = 5 + valuesList[7];
-export const amount = Math.floor(10 + valuesList[11]*0.5);
-export const enemyDamageSpeed = 5;
+// SCORE
+export const winningScore = 500 + valuesList[0] * 100; //
+
+// RESOURCES
+export const amount = 10 + valuesList[11] * 2; //
+export const startResources = 300 + valuesList[3] * 10; //
+export const speedSpawnResources = 200 - valuesList[6]*10; //
+
+// DEFENDER
+export const defenderCost = [valuesList[12] * 2 + 60, 2 * (valuesList[12] * 2 + 60),valuesList[1] * 2 + 40]; // 
+export const health = [ 25 + valuesList[8] * 4, 50 + valuesList[8] * 4,100 + valuesList[10] * 90 ]; //
+export const projectilePower = [5 + valuesList[2] * 2, 15 + valuesList[7] * 3]; //
+
+//ENEMY
+export const enemyDamage = [5 + Math.floor(valuesList[14]/2), 0.2 + valuesList[5]/2 ]; //
+export const speeedEnemy = [Math.random()/4 * 0.2 + valuesList[4] * 0.1,Math.random()/2 * 0.2 + valuesList[15] * 0.1];//
+export const enemyHealth = [100 + valuesList[9]*100,100 + valuesList[13]*80];
+export const enemyDamageSpeed = 5 + valuesList[16]*0.1;
 
 window.addEventListener('resize', function() {
     canvasPosition = canvas.getBoundingClientRect();

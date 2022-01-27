@@ -2,12 +2,12 @@ import * as gv from "./global_variables";
 
 
 export class Projectile{
-    constructor(x, y) {
+    constructor(x, y,type) {
         this.x = x;
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.power = gv.projectilePower;
+        this.power = gv.projectilePower[type];
         this.speed = 5;
     }
     update(){

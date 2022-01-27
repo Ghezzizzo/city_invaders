@@ -17,11 +17,16 @@ export class Enemy {
         this.y = verticalPosition;
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize- gv.cellGap * 2;
-        this.speed = gv.speeedEnemy1;
+        
+        
+        
+        
+        this.chosenEnemy = Math.floor(Math.random() * enemyTypes.length);
+        this.enemyType = enemyTypes[this.chosenEnemy];
+        this.speed = gv.speeedEnemy[this.chosenEnemy];
         this.movement = this.speed;
-        this.health = gv.enemyHealth1;
+        this.health = gv.enemyHealth[this.chosenEnemy];
         this.maxHealth = this.health;
-        this.enemyType = enemyTypes[Math.floor(Math.random()* enemyTypes.length)];
         this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;

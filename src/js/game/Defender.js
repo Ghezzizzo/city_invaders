@@ -12,18 +12,17 @@ export class Defender {
         this.height = gv.cellSize - gv.cellGap* 2;
         this.levitate = false;
 
-        // stats
-        this.health = gv.health1;
-
         // animation
         this.chosenDefender = chosenDefender;
         this.minFrame = cards[this.chosenDefender].anim.idle.start;
         this.maxFrame = cards[this.chosenDefender].anim.idle.end;
         this.frameX = this.minFrame;
         this.frameY = 0;
-        
         this.spriteWidth = cards[this.chosenDefender].draw.cut.width;
         this.spriteHeight = cards[this.chosenDefender].draw.cut.height;
+
+        // stats
+        this.health = gv.health[chosenDefender];
     
     }
     draw(){
@@ -69,7 +68,6 @@ export class Shooter extends Defender {
         this.shootNow = false;
         this.shootFrame = cards[this.chosenDefender].shootFrame;
         this.projectiles = [];
-        this.speedFire = gv.speedFire1;
     }
 
     update(){
@@ -85,7 +83,7 @@ export class Shooter extends Defender {
         this.maxFrame = cards[this.chosenDefender].anim.shoot.end;
 
         if (this.shootNow) {
-            gv.projectiles.push(new Projectile(this.x + 70, this.y + 40));
+            gv.projectiles.push(new Projectile(this.x + 70, this.y + 40, this.chosenDefender));
             this.shootNow = false;
             if (cards[this.chosenDefender].levitate.shoot) {
                 this.levitate = false;
