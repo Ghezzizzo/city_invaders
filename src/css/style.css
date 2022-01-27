@@ -133,6 +133,15 @@ h1 {
   font-size: 18px;
 }
 
+.tot-value {
+  font-size: 80px;
+  font-weight: 900;
+}
+
+.city-score {
+  font-size: 30px;
+  font-weight: 900;
+}
 /* categories */
 
 .categories {

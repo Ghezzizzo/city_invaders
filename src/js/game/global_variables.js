@@ -48,7 +48,7 @@ export const speedSpawnResources = 200 - valuesList[6]*10; //
 
 // DEFENDER
 export const defenderCost = [valuesList[12] * 2 + 60, 2 * (valuesList[12] * 2 + 60),valuesList[1] * 2 + 40]; // 
-export const health = [ 25 + valuesList[8] * 4, 50 + valuesList[8] * 4,100 + valuesList[10] * 90 ]; //
+export const health = [ 100 + valuesList[8] * 4, 50 + valuesList[8] * 4,100 + valuesList[10] * 90 ]; //
 export const projectilePower = [5 + valuesList[2] * 2, 15 + valuesList[7] * 3]; //
 
 //ENEMY

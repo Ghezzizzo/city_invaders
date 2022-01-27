@@ -42,6 +42,8 @@ async function addCities() {
 
             let categories = city.categories;
             v.cityPar.innerHTML = city.summary;
+            // categories.push(Math.floor(city.teleport_city_score));
+            v.totValue.innerHTML = Math.floor(city.teleport_city_score);
             for (let i = 0; i < categories.length; i++) {
                 v.number[i].innerHTML = "";
                 v.circle[i].style.strokeDashoffset = 260;
@@ -88,6 +90,7 @@ async function addCities() {
                     v.number[i].innerHTML = Math.floor(Math.random()*10);
                 }},10)    
             }
+            valuesList.push(Math.floor(city.teleport_city_score));
             document.cookie = valuesList;
         });
     });
