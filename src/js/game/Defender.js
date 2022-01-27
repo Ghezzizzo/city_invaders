@@ -27,14 +27,13 @@ export class Defender {
     
     }
     draw(){
-        ///////////////////////////
-        // collision area
         // collisionArea('blue',this.x, this.y, this.width, this.height);
-        //////////////////////////
-        gv.ctx.fillStyle = '#2f3640';
-        gv.ctx.font = '25px Stick No Bills';
+
+        gv.ctx.fillStyle = '#f5f6fa';
+        gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +32, this.y+10);
 
+        // shadow
         if (!this.levitate) {
             gv.ctx.beginPath();
             gv.ctx.fillStyle = 'rgba(0, 0, 0,0.5)';
@@ -42,7 +41,7 @@ export class Defender {
             gv.ctx.fill();
         }
         
-
+        // image
         gv.ctx.drawImage(gv.defenderList[this.chosenDefender], this.frameX * this.spriteWidth, 
             this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
             this.x, this.y, this.width, this.height);

@@ -97,7 +97,10 @@ const cards = [
             },
             
         },
-        canShoot: false
+        canShoot: false,
+        levitate: {
+            idle: false,
+        }
     }
 ]
 

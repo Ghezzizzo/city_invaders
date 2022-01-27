@@ -18,7 +18,7 @@ export class floatingMasseage {
     draw(){
         gv.ctx.globalAlpha = this.opacity;
         gv.ctx.fillStyle = this.color;
-        gv.ctx.font ='700 ' + this.size + 'px Stick No Bills';
+        gv.ctx.font = this.size + 'px Stick No Bills';
         gv.ctx.fillText(this.value,this.x,this.y);
         gv.ctx.globalAlpha = 1;
     }

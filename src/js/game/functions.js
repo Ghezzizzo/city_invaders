@@ -39,7 +39,7 @@ gv.canvas.addEventListener('click', function () {
         }
         numberOfResources -= gv.defenderCost;
     } else {
-        gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, '#2f3640'));
+        gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, '#f5f6fa'));
     }
 
 })
@@ -97,7 +97,7 @@ function handleEnemy() {
         if (gv.enemies[i].health <= 0) {
             score += gv.enemies[i].maxHealth/10;
             let gainedResources = gv.enemies[i].maxHealth/5;
-            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,gv.enemies[i].x,gv.enemies[i].y,20,'red'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,gv.enemies[i].x,gv.enemies[i].y,20,'#f5f6fa'))
             gv.floatingMessages.push(new floatingMasseage('+'+gainedResources,375,45,15,'#f5f6fa'))
             numberOfResources += gainedResources;
             const findPos = gv.enemyPositions.indexOf(gv.enemies[i].y);
@@ -146,7 +146,7 @@ function handleResource() {
         gv.resources[i].update();
         if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) {
             numberOfResources += gv.resources[i].amount;
-            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'#2f3640'))
+            gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount +' resources',gv.resources[i].x,gv.resources[i].y,20,'#f5f6fa'))
             gv.floatingMessages.push(new floatingMasseage('+'+gv.resources[i].amount,375,45,15,'#f5f6fa'))
             gv.resources.splice(i, 1);
             i--;

@@ -43,9 +43,9 @@ export class Enemy {
     }
     draw(){
         //collisionArea('red',this.x, this.y, this.width, this.height)
-        gv.ctx.fillStyle = 'red';
-        gv.ctx.font = '30px Stick No Bills';
-        gv.ctx.fillText(Math.floor(this.health), this.x +22, this.y+35);
+        gv.ctx.fillStyle = '#f5f6fa';
+        gv.ctx.font = '20px Stick No Bills';
+        gv.ctx.fillText(Math.floor(this.health), this.x +35, this.y+30);
         // ombra
         gv.ctx.beginPath();
         gv.ctx.fillStyle = 'rgba(0, 0, 0,0.5)';
