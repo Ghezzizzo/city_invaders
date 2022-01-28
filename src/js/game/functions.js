@@ -124,11 +124,17 @@ function handleProjectile() {
 
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.enemies[j] && gv.projectiles[i] && collision(gv.projectiles[i], gv.enemies[j])) {
-                gv.enemies[j].health -= gv.projectiles[i].power;
-                gv.projectiles.splice(i, 1);
-                i--;
-            }   
+                if (!gv.projectiles[i].explode) {
+                    gv.enemies[j].health -= gv.projectiles[i].power;    
+                }
+                gv.projectiles[i].explode = true;
+            } 
+             
         }
+        if (gv.projectiles[i].delete) {
+            gv.projectiles.splice(i, 1);
+            i--;   
+        } 
 
         if (gv.projectiles[i] && gv.projectiles[i].x > gv.canvas.width - gv.cellSize) {
             gv.projectiles.splice(i, 1);
