@@ -4,7 +4,7 @@ const path = require('path');
 
 
 module.exports = {
-    mode: 'development',
+    // mode: 'development',
     entry: {
         index: './src/js/first_page/index.js',
         game: './src/js/game/game.js',
