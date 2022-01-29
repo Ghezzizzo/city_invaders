@@ -7,8 +7,10 @@ createGrid();
 
 // create mouse interaction
 gv.canvas.addEventListener('mousemove', function (e) {
-    gv.mouse.x = e.x - gv.canvasPosition.left;
-    gv.mouse.y = e.y - gv.canvasPosition.top;
+    let propX = gv.canvas.width * (e.x - gv.canvasPosition.left) /gv.canvasPosition.width;
+    let propY =gv.canvas.height * (e.y - gv.canvasPosition.top) /gv.canvasPosition.height;
+    gv.mouse.x = propX;
+    gv.mouse.y = propY; 
 })
 
 gv.canvas.addEventListener('mouseleave', function () {
