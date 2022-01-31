@@ -18,9 +18,6 @@ export class Enemy {
         this.width = gv.cellSize - gv.cellGap * 2;
         this.height = gv.cellSize- gv.cellGap * 2;
         
-        
-        
-        
         this.chosenEnemy = Math.floor(Math.random() * enemyTypes.length);
         this.enemyType = enemyTypes[this.chosenEnemy];
         this.speed = gv.speeedEnemy[this.chosenEnemy];
@@ -38,10 +35,11 @@ export class Enemy {
        
         this.spriteWidth = 256;
         this.spriteHeight = 256;
+        this.frameSpeed = [8,7]
     }
     update(){
         this.x -= this.movement;
-        if (frame % 7 === 0) {
+        if (frame % this.frameSpeed[this.chosenEnemy] === 0) {
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
         }

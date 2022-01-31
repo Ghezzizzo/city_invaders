@@ -32,7 +32,7 @@ export class Projectile{
             this.maxFrame = 7;
         }
 
-        if (frame % 7 === 0) {
+        if (frame % 4 === 0) {
             if (this.frameX < this.maxFrame) {
                 if (this.frameX === 6) {
                     this.delete = true;

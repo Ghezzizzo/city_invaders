@@ -53,9 +53,9 @@ export const projectilePower = [5 + valuesList[2] * 2, 15 + valuesList[7] * 3]; 
 
 //ENEMY
 export const enemyDamage = [5 + Math.floor(valuesList[14]/2), 0.2 + valuesList[5]/2 ]; //
-export const speeedEnemy = [Math.random()/4 * 0.2 + valuesList[4] * 0.1,Math.random()/2 * 0.2 + valuesList[15] * 0.1];//
+export const speeedEnemy = [Math.random()/8 * 0.2 + valuesList[4] * 0.03,Math.random()/4 * 0.2 + valuesList[15] * 0.1];//
 export const enemyHealth = [100 + valuesList[9]*100,100 + valuesList[13]*80];
-export const enemyDamageSpeed = 5 + Math.floor(valuesList[16]*0.1);
+export const enemyDamageSpeed = 20 + Math.floor(valuesList[16]*0.1);
 
 window.addEventListener('resize', function() {
     canvasPosition = canvas.getBoundingClientRect();
