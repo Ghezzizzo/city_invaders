@@ -41,9 +41,11 @@ async function addCities() {
             await myFetch('https://api.teleport.org/api/urban_areas/slug:'+theCity+'/scores/');
 
             let categories = city.categories;
+            v.totDesc.innerHTML = "Total value";
             v.cityPar.innerHTML = city.summary;
             // categories.push(Math.floor(city.teleport_city_score));
             v.totValue.innerHTML = Math.floor(city.teleport_city_score);
+
             for (let i = 0; i < categories.length; i++) {
                 v.number[i].innerHTML = "";
                 v.circle[i].style.strokeDashoffset = 260;
@@ -53,7 +55,7 @@ async function addCities() {
                 v.desc[i].innerHTML = categories[i].name;
                 let circleValue = Math.floor(value*260/10);
                 let counter = 0;
-               
+                
                 const interval = setInterval(()=>{if (counter == circleValue){
                     v.number[i].innerHTML = value;
                     clearInterval(interval);
@@ -82,7 +84,6 @@ async function addCities() {
                         v.circle[i].style.stroke = categories[i].color;
                         v.number[i].style.color = "#555";
                         document.body.style.background = "#f7f6ff";
-                        v.btnGame.style.background = "#ff0000";
                     })
                 }else{
                     counter += 1;
@@ -90,10 +91,45 @@ async function addCities() {
                     v.number[i].innerHTML = Math.floor(Math.random()*10);
                 }},10)    
             }
+
+            let sumDifficultLevel = valuesList[4] + valuesList[9] + valuesList[12];
+            v.btnGame.style.background = btnColor(sumDifficultLevel);
+            console.log(btnColor(sumDifficultLevel));
+            console.log(sumDifficultLevel);
+           
             valuesList.push(Math.floor(city.teleport_city_score));
             document.cookie = valuesList;
+            valuesList = [];
         });
     });
+}
+
+const btnColor = function (value) {
+    let color = "#2f3640";
+    switch (true) {
+        case value < 10:
+            color = "green";
+            v.btnGame.innerHTML = "Easy";
+            break;
+        case value < 15:
+            color = "yellow";
+            v.btnGame.innerHTML = "Medium";
+            break;
+        case value < 20:
+            color = "orange";
+            v.btnGame.innerHTML = "Hard";
+            break;
+        case value < 30:
+            color = "red";
+            v.btnGame.innerHTML = "Insane";
+            break;
+    
+        default:
+            color = "#2f3640";
+            console.log('entrato');
+            break;
+    }
+    return color;
 }
 
 export {addCities,optionsList};

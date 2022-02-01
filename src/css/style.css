@@ -15,6 +15,7 @@ body {
 h1 {
   margin: 16px;
   text-align: center;
+  color: #2f3640;
 }
 
 .container {
@@ -131,17 +132,21 @@ h1 {
 .city-par p {
   line-height: 26px;
   font-size: 18px;
+  color: #2f3640;
+}
+
+.tot-desc {
+  font-size: 28px;
+  font-weight: 900;
+  color: #2f3640;
 }
 
 .tot-value {
   font-size: 80px;
   font-weight: 900;
+  color: #2f3640;
 }
 
-.city-score {
-  font-size: 30px;
-  font-weight: 900;
-}
 /* categories */
 
 .categories {
@@ -247,8 +252,21 @@ svg {
     -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 900px) {
   .button {
     display: none;
+  }
+
+  .select-box {
+    width: 90%;
+  }
+
+  .selected_city {
+    padding-top: 0;
+  }
+
+  .skill {
+    margin: 0.5rem;
+    margin-bottom: 4rem;
   }
 }

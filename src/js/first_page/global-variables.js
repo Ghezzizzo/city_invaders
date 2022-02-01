@@ -9,6 +9,7 @@ export const circle = document.querySelectorAll("circle");
 export const btnGame = document.querySelector(".game-link");
 export const cityPar = document.querySelector(".city-par");
 export const totValue = document.querySelector(".tot-value");
+export const totDesc = document.querySelector(".tot-desc");
 
 export const glitch = [
     "Winning Score","Shild Cost","Bullet Damage",
