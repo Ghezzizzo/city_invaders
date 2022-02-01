@@ -55,7 +55,8 @@ async function addCities() {
                 v.desc[i].innerHTML = categories[i].name;
                 let circleValue = Math.floor(value*260/10);
                 let counter = 0;
-                
+                let sumDifficultLevel = valuesList[4] + valuesList[9] + valuesList[12];
+                v.btnGame.style.background = btnColor(sumDifficultLevel);
                 const interval = setInterval(()=>{if (counter == circleValue){
                     v.number[i].innerHTML = value;
                     clearInterval(interval);
@@ -72,6 +73,8 @@ async function addCities() {
                         v.desc[i].style.color = "#adff2f";
                         v.circle[i].style.stroke = "#adff2f";
                         v.number[i].style.color = "#adff2f";
+                        v.btnGame.style.color = "#2f3640";
+                        v.btnGame.style.background = "#adff2f";
                         document.body.style.background = "#2f3640";
                     })
                     v.btnGame.addEventListener('mouseout',()=>{ 
@@ -84,6 +87,8 @@ async function addCities() {
                         v.circle[i].style.stroke = categories[i].color;
                         v.number[i].style.color = "#555";
                         document.body.style.background = "#f7f6ff";
+                        v.btnGame.style.background = btnColor(sumDifficultLevel);
+                        v.btnGame.style.color = "#f5f6fa";
                     })
                 }else{
                     counter += 1;
@@ -92,10 +97,8 @@ async function addCities() {
                 }},10)    
             }
 
-            let sumDifficultLevel = valuesList[4] + valuesList[9] + valuesList[12];
-            v.btnGame.style.background = btnColor(sumDifficultLevel);
-            console.log(btnColor(sumDifficultLevel));
-            console.log(sumDifficultLevel);
+           
+            
            
             valuesList.push(Math.floor(city.teleport_city_score));
             document.cookie = valuesList;
@@ -108,20 +111,24 @@ const btnColor = function (value) {
     let color = "#2f3640";
     switch (true) {
         case value < 10:
-            color = "green";
+            color = "#19ad51";
             v.btnGame.innerHTML = "Easy";
+            v.btnGame.style.color = "#f5f6fa";
             break;
         case value < 15:
-            color = "yellow";
+            color = "#f3d630";
             v.btnGame.innerHTML = "Medium";
+            v.btnGame.style.color = "#2f3640";
             break;
         case value < 20:
-            color = "orange";
+            color = "#f29b30";
             v.btnGame.innerHTML = "Hard";
+            v.btnGame.style.color = "#f5f6fa";
             break;
         case value < 30:
             color = "red";
             v.btnGame.innerHTML = "Insane";
+            v.btnGame.style.color = "#f5f6fa";
             break;
     
         default:
