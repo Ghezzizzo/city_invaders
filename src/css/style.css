@@ -253,10 +253,6 @@ svg {
 }
 
 @media only screen and (max-width: 900px) {
-  .button {
-    display: none;
-  }
-
   .select-box {
     width: 90%;
   }

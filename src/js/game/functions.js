@@ -6,6 +6,7 @@ import {Resourse} from './Resource';
 import {floatingMasseage } from "./FloatingMessage";
 import {cards} from './cards';
 import terrain from "../../img/background.jpg";
+import {input} from './game';
 
 let frame = 0;
 let enemiesInterval = 1000;
@@ -31,6 +32,11 @@ gv.canvas.addEventListener('click', function () {
         if (gv.defenders[i].x === gridPositionX && 
             gv.defenders[i].y === gridPositionY) return;
     }
+
+    for (let i = 0; i < gv.resources.length; i++) {
+        if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) return;  
+    }
+    
     if (numberOfResources >= cards[chosenDefender].cost){
         if (cards[chosenDefender].canShoot) {
             gv.defenders.push(new Shooter(gridPositionX,gridPositionY));
@@ -206,6 +212,13 @@ function handleGameStatus() {
 function animate() {
     if (!gameOver) {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);
+
+        if (input.keys[0] === "mousedown") {
+            gv.mouse.clicked = true;
+        } else {
+            gv.mouse.clicked = false;
+        }
+
         gv.ctx.drawImage(ground, 0,400,1920,200, 0, 0, gv.canvas.width,gv.cellSize);
         gv.ctx.drawImage(ground, 0, 680,gv.canvas.width,540, 0, gv.cellSize, gv.canvas.width,gv.cellSize*3);
         gv.ctx.drawImage(ground, 0, 720,gv.canvas.width,540, 0, gv.cellSize * 3 + 20, gv.canvas.width,gv.cellSize*3);
@@ -222,6 +235,7 @@ function animate() {
         handleProjectile();
         handleFloatingMessage();
         frame++;
+        
         requestAnimationFrame(animate);
     } else {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);  
@@ -247,7 +261,7 @@ function chooseDefender() {
 
     for (let i = 0; i < cards.length; i++) {
         cardStroke.push('#2f3640');
-        if (collision(gv.mouse, cards[i]) && gv.mouse.clicked) {
+        if (collision(gv.mouse, cards[i])) {
             chosenDefender = i;
         }
     }
@@ -257,8 +271,6 @@ function chooseDefender() {
             cardStroke[i] = '#f5f6fa';
         }
     }
-
-
     
     for (let i = 0; i < cards.length; i++) {
         gv.ctx.lineWidth = 1;
