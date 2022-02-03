@@ -27,6 +27,7 @@ async function addCities() {
         createList(nameCities[i].name);
     }
     optionsList = document.querySelectorAll(".option");
+
     optionsList.forEach( (o) => {
         o.addEventListener("click", async () => {
             v.btnGame.style.background = "#2f3640";
@@ -44,7 +45,6 @@ async function addCities() {
             v.totDesc.innerHTML = "Total value";
             v.cityPar.innerHTML = city.summary;
             // categories.push(Math.floor(city.teleport_city_score));
-            v.totValue.innerHTML = Math.floor(city.teleport_city_score);
 
             for (let i = 0; i < categories.length; i++) {
                 v.number[i].innerHTML = "";
@@ -56,50 +56,28 @@ async function addCities() {
                 let circleValue = Math.floor(value*260/10);
                 let counter = 0;
                 let sumDifficultLevel = valuesList[4] + valuesList[9] + valuesList[12];
-                v.btnGame.style.background = btnColor(sumDifficultLevel);
+                v.btnGame.style.background = "#2f3640" // btnColor(sumDifficultLevel);
                 const interval = setInterval(()=>{if (counter == circleValue){
                     v.number[i].innerHTML = value;
+                    v.totValue.innerHTML = Math.floor(city.teleport_city_score);
                     clearInterval(interval);
                     v.btnGame.style.opacity = '1';
                     v.btnGame.style.pointerEvents = 'auto';
-                    v.btnGame.addEventListener('mouseover',()=>{ 
-                        v.desc[i].innerHTML = v.glitch[i];
-                        let num = Math.floor(Math.random()*20);
-                        let num2 = Math.floor(Math.random()*20);
-                        let sum = num - num2;
-                        v.desc[i].style.top = sum + 'px';
-                        v.desc[i].style.left = sum + 'px';
-                        v.desc[i].style.transform = "rotate("+sum+"deg)";
-                        v.desc[i].style.color = "#adff2f";
-                        v.circle[i].style.stroke = "#adff2f";
-                        v.number[i].style.color = "#adff2f";
-                        v.btnGame.style.color = "#2f3640";
-                        v.btnGame.style.background = "#adff2f";
-                        document.body.style.background = "#2f3640";
-                    })
-                    v.btnGame.addEventListener('mouseout',()=>{ 
-                        v.desc[i].innerHTML = categories[i].name;
-                        v.desc[i].style.top = '0';
-                        v.desc[i].style.top = '0';
-                        v.desc[i].style.left = '0';
-                        v.desc[i].style.transform = "rotate(0deg)";
-                        v.desc[i].style.color = "#000";
-                        v.circle[i].style.stroke = categories[i].color;
-                        v.number[i].style.color = "#555";
-                        document.body.style.background = "#f7f6ff";
-                        v.btnGame.style.background = btnColor(sumDifficultLevel);
-                        v.btnGame.style.color = "#f5f6fa";
-                    })
+
                 }else{
                     counter += 1;
                     v.circle[i].style.strokeDashoffset = 260 - counter;
                     v.number[i].innerHTML = Math.floor(Math.random()*10);
+                    v.totValue.innerHTML = Math.floor(Math.random()*100);
                 }},10)    
-            }
-
-           
             
-           
+                v.btnGame.addEventListener('mouseover',()=>{ 
+                    gameView(i, sumDifficultLevel);
+                })
+                v.btnGame.addEventListener('mouseout',()=>{ 
+                    cityView(i, categories, sumDifficultLevel);
+                })
+            }
             valuesList.push(Math.floor(city.teleport_city_score));
             document.cookie = valuesList;
             valuesList = [];
@@ -133,10 +111,41 @@ const btnColor = function (value) {
     
         default:
             color = "#2f3640";
-            console.log('entrato');
             break;
     }
     return color;
+}
+
+function gameView(i, value) {
+    v.desc[i].innerHTML = v.glitch[i];
+    let num = Math.floor(Math.random()*20);
+    let num2 = Math.floor(Math.random()*20);
+    let sum = num - num2;
+    v.desc[i].style.top = sum + 'px';
+    v.desc[i].style.left = sum + 'px';
+    v.desc[i].style.transform = "rotate("+sum+"deg)";
+    v.desc[i].style.color = "#adff2f";
+    v.circle[i].style.stroke = "#adff2f";
+    v.number[i].style.color = "#adff2f";
+    v.totValue.style.color = "#adff2f";
+    v.btnGame.style.color = "#2f3640";
+    v.btnGame.style.background = btnColor(value);
+    document.body.style.background = "#2f3640";
+}
+
+function cityView(i, categories, value) {
+    v.desc[i].innerHTML = categories[i].name;
+    v.desc[i].style.top = '0';
+    v.desc[i].style.top = '0';
+    v.desc[i].style.left = '0';
+    v.desc[i].style.transform = "rotate(0deg)";
+    v.desc[i].style.color = "#000";
+    v.circle[i].style.stroke = categories[i].color;
+    v.number[i].style.color = "#555";
+    document.body.style.background = "#f7f6ff";
+    v.totValue.style.color = "#2f3640";
+    v.btnGame.innerHTML = "Play";
+    v.btnGame.style.color = "#f5f6fa";
 }
 
 export {addCities,optionsList};
