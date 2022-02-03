@@ -49,11 +49,11 @@ export const speedSpawnResources = 200 - valuesList[6]*10; //
 // DEFENDER
 export const defenderCost = [valuesList[12] * 2 + 60, 2 * (valuesList[12] * 2 + 60),valuesList[1] * 2 + 40]; // 
 export const health = [ 100 + valuesList[8] * 4, 50 + valuesList[8] * 4,100 + valuesList[10] * 90 ]; //
-export const projectilePower = [5 + valuesList[2] * 2, 15 + valuesList[7] * 3]; //
+export const projectilePower = [5 + valuesList[2] * 2, 30 + valuesList[7] * 3]; //
 
 //ENEMY
 export const enemyDamage = [5 + Math.floor(valuesList[14]/2), 1 + Math.floor(valuesList[5]/2) ]; //
-export const speeedEnemy = [Math.random() * 0.2 + valuesList[4] * 0.03,Math.random() * 0.2 + valuesList[15] * 0.1];//
+export const enemySpeed = [Math.random() * 0.2 + valuesList[4] * 0.04,Math.random() * 0.2 + valuesList[15] * 0.1];//
 export const enemyHealth = [100 + valuesList[9]*100,100 + valuesList[13]*80];
 export const enemyDamageSpeed = 20 + Math.floor(valuesList[16]*0.1);
 

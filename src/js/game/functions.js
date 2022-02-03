@@ -74,11 +74,12 @@ function handleDefender() {
             if (gv.defenders[i] && collision(gv.defenders[i], gv.enemies[j])) {
                 gv.enemies[j].movement = 0;
                 
-                if( frame % gv.enemyDamageSpeed === 0) gv.defenders[i].health -= gv.enemyDamage[gv.enemies[j].chosenEnemy];
+                if( frame % gv.enemyDamageSpeed === 0) {
+                    gv.defenders[i].health -= gv.enemyDamage[gv.enemies[j].chosenEnemy];
+                    gv.floatingMessages.push(new floatingMasseage('-' + gv.enemyDamage[gv.enemies[j].chosenEnemy], gv.defenders[i].x + 40 + Math.floor(Math.random()*20 - 10),gv.defenders[i].y -5,15,'#f5f6fa')) 
+                }
                 
-            } else {
-                // gv.enemies[j].movement = gv.enemies[j].speed;
-            }
+            } 
             if(gv.defenders[i] && gv.defenders[i].health <= 0){
                 gv.defenders.splice(i, 1);
                 i--;
@@ -125,7 +126,8 @@ function handleProjectile() {
         for (let j = 0; j < gv.enemies.length; j++) {
             if (gv.enemies[j] && gv.projectiles[i] && collision(gv.projectiles[i], gv.enemies[j])) {
                 if (!gv.projectiles[i].explode) {
-                    gv.enemies[j].health -= gv.projectiles[i].power;    
+                    gv.enemies[j].health -= gv.projectiles[i].power;
+                    gv.floatingMessages.push(new floatingMasseage('-' + gv.projectiles[i].power,gv.enemies[j].x + 40,gv.enemies[j].y + 10,15,'#f5f6fa')) 
                 }
                 gv.projectiles[i].explode = true;
             } 

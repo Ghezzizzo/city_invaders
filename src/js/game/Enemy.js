@@ -20,7 +20,7 @@ export class Enemy {
         
         this.chosenEnemy = Math.floor(Math.random() * enemyTypes.length);
         this.enemyType = enemyTypes[this.chosenEnemy];
-        this.speed = gv.speeedEnemy[this.chosenEnemy];
+        this.speed = gv.enemySpeed[this.chosenEnemy];
         this.movement = this.speed;
         this.health = gv.enemyHealth[this.chosenEnemy];
         this.maxHealth = this.health;
