@@ -71,10 +71,13 @@ async function addCities() {
                     v.number[i].innerHTML = Math.floor(Math.random()*10);
                     v.totValue.innerHTML = Math.floor(Math.random()*100);
                 }},10)    
-            
+                
                 v.btnGame.addEventListener('mouseover',()=>{ 
-                    gameView(i, sumDifficultLevel);
+                    if (screen.width >= 900) {
+                        gameView(i, sumDifficultLevel);
+                    }
                 })
+
                 v.btnGame.addEventListener('mouseout',()=>{ 
                     cityView(i, categories, sumDifficultLevel);
                 })

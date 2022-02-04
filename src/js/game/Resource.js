@@ -9,8 +9,8 @@ export class Resourse {
     constructor() {
         this.x = Math.random() * (gv.canvas.width - gv.cellSize);
         this.y = Math.floor(Math.random() * 5 + 1) * gv.cellSize + 25;
-        this.width = gv.cellSize * 0.6;
-        this.height = gv.cellSize * 0.6;
+        this.width = gv.cellSize * 0.8;
+        this.height = gv.cellSize * 0.8;
         this.amount = gv.amount;
         this.frameX = 0;
         this.frameY = 0;
@@ -27,7 +27,7 @@ export class Resourse {
         // gv.ctx.fillText(this.amount,this.x + 20, this.y + 22);
         gv.ctx.drawImage(coin, this.frameX * this.spriteWidth, 
             this.frameY * this.spriteHeight, this.spriteWidth, 
-            this.spriteHeight, this.x + 16, this.y + 25, this.width/1.5, this.height/1.5);
+            this.spriteHeight, this.x + 16, this.y + 25, this.width/2, this.height/2);
     }
     update(){
         if (frame % 7 === 0) {
@@ -35,14 +35,4 @@ export class Resourse {
             else this.frameX = this.minFrame;
         }
     }
-    // draw(){
-    //     //collisionArea('red',this.x, this.y, this.width, this.height)
-    //     gv.ctx.fillStyle = 'red';
-    //     gv.ctx.font = '30px Stick No Bills';
-    //     gv.ctx.fillText(Math.floor(this.health), this.x +22, this.y+35);
-    //     // gv.ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
-    //     gv.ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 
-    //         this.frameY * this.spriteHeight, this.spriteWidth, 
-    //         this.spriteHeight, this.x, this.y, this.width, this.height);
-    // }
 }
