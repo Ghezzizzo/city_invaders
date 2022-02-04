@@ -30,7 +30,7 @@ export const resources = [];
 export const endGame = ['GAME OVER','YOU WIN'];
 
 export const controlBar = {width:canvas.width, height: cellSize}
-export const mouse = { x: 10, y: 10, width:0.1, height:0.1, clicked: false}
+export const mouse = { x: cellSize, y: cellSize, width:0.1, height:0.1, clicked: false}
 
 export let canvasPosition = canvas.getBoundingClientRect();
 

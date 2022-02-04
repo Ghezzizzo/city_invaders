@@ -13,8 +13,9 @@ let enemiesInterval = 1000;
 let score = 0;
 let result = 1;
 let gameOver = false;
-let chosenDefender = 0;
+let chosenDefender = -1;
 let numberOfResources = gv.startResources;
+let selected = false;
 
 const ground = new Image();
 ground.src = terrain;
@@ -37,16 +38,22 @@ gv.canvas.addEventListener('click', function () {
         if (gv.resources[i] && gv.mouse.x && gv.mouse.y && collision(gv.resources[i], gv.mouse)) return;  
     }
     
-    if (numberOfResources >= cards[chosenDefender].cost){
-        if (cards[chosenDefender].canShoot) {
-            gv.defenders.push(new Shooter(gridPositionX,gridPositionY));
+    if (selected) {
+        if (numberOfResources >= cards[chosenDefender].cost){
+            if (cards[chosenDefender].canShoot) {
+                gv.defenders.push(new Shooter(gridPositionX,gridPositionY));
+            } else {
+                gv.defenders.push(new Defender(gridPositionX,gridPositionY));
+            }
+            numberOfResources -= cards[chosenDefender].cost;
         } else {
-            gv.defenders.push(new Defender(gridPositionX,gridPositionY));
+            gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, '#f5f6fa'));
         }
-        numberOfResources -= cards[chosenDefender].cost;
+        selected = false;
     } else {
-        gv.floatingMessages.push(new floatingMasseage('need more resources', gv.mouse.x,gv.mouse.y, 20, '#f5f6fa'));
+        gv.floatingMessages.push(new floatingMasseage('select your defender', gv.mouse.x,gv.mouse.y, 20, '#f5f6fa'));
     }
+
 
 })
 
@@ -213,11 +220,11 @@ function animate() {
     if (!gameOver) {
         gv.ctx.clearRect(0,0,gv.canvas.width,gv.canvas.height);
 
-        if (input.keys[0] === "mousedown") {
-            gv.mouse.clicked = true;
-        } else {
-            gv.mouse.clicked = false;
+        if (gv.mouse.y <= gv.cellSize && gv.mouse.x >= 280 && gv.mouse.clicked) {
+            selected = false;
         }
+
+        
 
         gv.ctx.drawImage(ground, 0,400,1920,200, 0, 0, gv.canvas.width,gv.cellSize);
         gv.ctx.drawImage(ground, 0, 680,gv.canvas.width,540, 0, gv.cellSize, gv.canvas.width,gv.cellSize*3);
@@ -234,6 +241,12 @@ function animate() {
         handleResource();
         handleProjectile();
         handleFloatingMessage();
+
+        if (input.keys[0] === "mousedown") {
+            gv.mouse.clicked = true;
+        } else {
+            gv.mouse.clicked = false;
+        }
         frame++;
         
         requestAnimationFrame(animate);
@@ -261,22 +274,26 @@ function chooseDefender() {
 
     for (let i = 0; i < cards.length; i++) {
         cardStroke.push('#2f3640');
-        if (collision(gv.mouse, cards[i])) {
+        if (collision(gv.mouse, cards[i]) && gv.mouse.clicked) {
             chosenDefender = i;
+            selected = true;
+        }
+
+        if (chosenDefender === i && selected) {
+            cardStroke[i] = '#f5f6fa';
         }
     }
 
     for (let i = 0; i < cards.length; i++) {
-        if (chosenDefender === i) {
-            cardStroke[i] = '#f5f6fa';
-        }
+
     }
     
     for (let i = 0; i < cards.length; i++) {
         gv.ctx.lineWidth = 1;
-    gv.ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        gv.ctx.fillStyle = 'rgba(0,0,0,0.2)';
         createCards(cards[i],cardStroke[i],gv.defenderList[i]);
     }
+    
 }
 
 function createCards(card,cardStroke,img) {
@@ -298,4 +315,4 @@ function collisionArea(color,x,y,width,height) {
     gv.ctx.fillRect(x, y, width, height);
 }
 
-export {collisionArea,createGrid,handleGameGrid,animate,collision,createValues,frame,chosenDefender};
+export {collisionArea,createGrid,handleGameGrid,animate,collision,createValues,frame,chosenDefender,selected};

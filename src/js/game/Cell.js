@@ -1,6 +1,6 @@
 import * as gv from "./global_variables";
 import groundImage from '../../img/grass1.png';
-import {collision, collisionArea} from './functions';
+import {collision, collisionArea,selected} from './functions';
 
 const ground = new Image();
 ground.src = groundImage;
@@ -22,7 +22,7 @@ export class Cell {
         // gv.ctx.drawImage(ground, this.frameX * this.spriteWidth, 
         //     this.frameY * this.spriteHeight, this.spriteWidth, 
         //     this.spriteHeight, this.x, this.y, this.width, this.height);
-        if (gv.mouse.x && gv.mouse.y && collision(this,gv.mouse)){
+        if (gv.mouse.x && gv.mouse.y && collision(this,gv.mouse) && selected){
             // gv.ctx.strokeStyle = 'black';
             // gv.ctx.strokeRect(this.x, this.y, this.width, this.height);
         gv.ctx.fillStyle = 'rgba(0, 161, 255,0.2)';
