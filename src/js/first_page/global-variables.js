@@ -2,6 +2,7 @@
 export const selected = document.querySelector(".selected");
 export const optionsContainer = document.querySelector(".options-container");
 export const searchBox = document.querySelector(".search-box input");
+export const skill = document.querySelectorAll(".skill");
 
 export const number = document.querySelectorAll(".number");
 export const desc = document.querySelectorAll(".desc");

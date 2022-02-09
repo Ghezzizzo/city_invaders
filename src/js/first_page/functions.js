@@ -31,6 +31,7 @@ async function addCities() {
 
     optionsList.forEach( (o) => {
         o.addEventListener("click", async () => {
+            
             v.btnGame.style.background = "#2f3640";
             v.selected.innerHTML = o.querySelector("label").innerHTML;
             let theCity = v.selected.innerHTML.toLowerCase();
@@ -45,9 +46,9 @@ async function addCities() {
             let categories = city.categories;
             v.totDesc.innerHTML = "Total value";
             v.cityPar.innerHTML = city.summary;
-            // categories.push(Math.floor(city.teleport_city_score));
 
             for (let i = 0; i < categories.length; i++) {
+                v.skill[i].style.display = 'block';
                 v.number[i].innerHTML = "";
                 v.circle[i].style.strokeDashoffset = 260;
                 let value = Math.floor(categories[i].score_out_of_10);
@@ -62,6 +63,8 @@ async function addCities() {
                     v.number[i].innerHTML = value;
                     v.totValue.innerHTML = Math.floor(city.teleport_city_score);
                     clearInterval(interval);
+                   
+                    
                     v.btnGame.style.opacity = '1';
                     v.btnGame.style.pointerEvents = 'auto';
 
