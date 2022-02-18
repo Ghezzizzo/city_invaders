@@ -1,6 +1,6 @@
 import * as gv from "./global_variables";
 
-export class floatingMasseage {
+export class floatingMessage {
     constructor(value, x, y, size,color){
         this.value = value;
         this.x = x;

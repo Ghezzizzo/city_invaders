@@ -5,7 +5,7 @@ import { collisionArea,frame } from "./functions";
 const coin = new Image();
 coin.src = resourceCoin;
 
-export class Resourse {
+export class Resource {
     constructor() {
         this.x = Math.random() * (gv.canvas.width - gv.cellSize);
         this.y = Math.floor(Math.random() * 5 + 1) * gv.cellSize + 25;
