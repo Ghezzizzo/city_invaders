@@ -63,4 +63,14 @@ function cityView(i, categories, value) {
     v.btnGame.style.color = "#f5f6fa";
 }
 
-export {cityView,gameView};
+function clear() {
+    v.totDesc.innerHTML = "";
+    v.cityPar.innerHTML = "";
+    for (let i = 0; i < 17; i++) {
+        v.skill[i].style.display = 'none';
+    }
+    v.btnGame.style.opacity = '0';
+    v.btnGame.style.pointerEvents = 'none';
+    v.totValue.innerHTML = "";
+}
+export {cityView,gameView,clear};

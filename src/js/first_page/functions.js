@@ -1,14 +1,18 @@
 import * as v from "./global-variables";
-import {gameView,cityView} from "./utility-functions";
+import {gameView,cityView,clear} from "./utility-functions";
 
 let city;
 let optionsList;
 let valuesList = [];
 
-async function myFetch(input){
+async function myFetch(input,selected){
+    if (selected) {
+        v.totDesc.innerHTML = 'wait';
+    }
     let response = await fetch(input);
     let myJson = await response.json();
     city = myJson;  
+    console.log(city);
 }
 
 function createList(nameCity) {
@@ -22,7 +26,7 @@ function createList(nameCity) {
 }
 
 async function addCities() {
-    await myFetch(v.url);
+    await myFetch(v.url,false);
     let nameCities = city._links["ua:item"];
     for (let i = 0; i < nameCities.length; i++) {
         createList(nameCities[i].name);
@@ -31,7 +35,7 @@ async function addCities() {
 
     optionsList.forEach( (o) => {
         o.addEventListener("click", async () => {
-            
+            clear();
             v.btnGame.style.background = "#2f3640";
             v.selected.innerHTML = o.querySelector("label").innerHTML;
             let theCity = v.selected.innerHTML.toLowerCase();
@@ -41,7 +45,11 @@ async function addCities() {
             theCity = theCity.replace(/ /g, "-").replace(",", "").replace(".", "");
             v.optionsContainer.classList.remove("active");
             
-            await myFetch('https://api.teleport.org/api/urban_areas/slug:'+theCity+'/scores/');
+            await myFetch('https://api.teleport.org/api/urban_areas/slug:'+theCity+'/scores/',true);
+
+            if (city.http_status_code === 500) {
+                return v.totDesc.innerHTML = "Sorry, this city is not ready yet. Please select another one";
+            }
 
             let categories = city.categories;
             v.totDesc.innerHTML = "Total value";
@@ -63,7 +71,6 @@ async function addCities() {
                     v.number[i].innerHTML = value;
                     v.totValue.innerHTML = Math.floor(city.teleport_city_score);
                     clearInterval(interval);
-                   
                     
                     v.btnGame.style.opacity = '1';
                     v.btnGame.style.pointerEvents = 'auto';

@@ -49,7 +49,7 @@ export class Enemy {
         gv.ctx.fillStyle = '#f5f6fa';
         gv.ctx.font = '20px Stick No Bills';
         gv.ctx.fillText(Math.floor(this.health), this.x +35, this.y+30);
-        // ombra
+        // shadow
         gv.ctx.beginPath();
         gv.ctx.fillStyle = 'rgba(0, 0, 0,0.5)';
         gv.ctx.ellipse(this.x + 45, this.y + 85, 25, 5, Math.PI, 0, 2 * Math.PI);
